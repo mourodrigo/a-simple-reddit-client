@@ -57,10 +57,10 @@ class Authorization {
         
         let code = authParams["code"]! as String
         
-        accessToken(with: code)
+        getToken(with: "grant_type=authorization_code&code=\(code)&redirect_uri=\(self.redirect_uri)")
     }
     
-    func accessToken(with code:String){
+    func getToken(with params:String){
         
         let url = URL(string: "https://www.reddit.com/api/v1/access_token")!
         let session = URLSession.shared
@@ -76,9 +76,7 @@ class Authorization {
         
         request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         
-        let paramString = "grant_type=authorization_code&code=\(code)&redirect_uri=\(self.redirect_uri)"
-        
-        request.httpBody = paramString.data(using: String.Encoding.utf8)
+        request.httpBody = params.data(using: String.Encoding.utf8)
         
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
         
@@ -103,5 +101,11 @@ class Authorization {
         
         task.resume()
         
-    }  
+    }
+    
+    func refreshToken(){
+        
+        getToken(with: "grant_type=refresh_token&refresh_token=\(self.token["refresh_token"]!)")
+    
+    }
 }

@@ -80,6 +80,9 @@ class ViewController: UIViewController {
         
     }
     
+    @IBAction func refresh(_ sender: Any) {
+        Authorization.sharedInstance.refreshToken()
+    }
 
     
     
