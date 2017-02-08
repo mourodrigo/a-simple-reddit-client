@@ -10,8 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let securityAuthRandomString = "r239847y52f34v8347y"
-    
+    let clientId = "isBHEDq__wuqTQ"
+    let responseType = "code"
+    let state = "r239847y52f34v8347y"
+    let duration = "permanent"
+    let scope = "read"
+    let redirect_uri = "mourodrigo.a-simple-reddit-client://callback"
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -23,19 +28,16 @@ class ViewController: UIViewController {
     }
     
     @IBAction func didPressLoginButton(_ sender: AnyObject) {
-
-        let clientId = "isBHEDq__wuqTQ"
-        let responseType = "code"
-        let state = securityAuthRandomString
-        let redirect_uri = "mourodrigo.a-simple-reddit-client://callback" //can get it directly from info plist if necessary
-        let duration = "permanent"
-        let scope = "read"
+        self.login()
+    }
+    
+    func login(){
         
         let authUrl = "https://www.reddit.com/api/v1/authorize.compact?client_id=\(clientId)&response_type=\(responseType)&state=\(state)&redirect_uri=\(redirect_uri)&duration=\(duration)&scope=\(scope)"
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.oAuthDidReturn(notification:)), name: .oAuthDidReturn, object: nil) //observer will be called on authentication callback
         
-        openOnBrowser(url: authUrl)
+        self.openOnBrowser(url: authUrl)
     }
     
     func openOnBrowser(url: String) {
@@ -57,8 +59,6 @@ class ViewController: UIViewController {
     func oAuthDidReturn(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .oAuthDidReturn, object: nil)
         
-        print(notification.object)
-        
         if(notification.object == nil){
             presentErrorAlert()
             return
@@ -66,14 +66,16 @@ class ViewController: UIViewController {
         
         let authQueryString = notification.object as! String
         
-        let authParams = authQueryString.components(separatedBy: "&")
+        let authParams = authQueryString.componentsFromQueryString
         
-        if(authParams.count==0 || !authQueryString.contains(self.securityAuthRandomString)){
+        if( authParams.count==0 || !authQueryString.contains(state) ){
             presentErrorAlert()
             return
         }
         
+        let code = authParams["code"]! as String
         
+        accessToken(with: code)
     }
     
     func presentErrorAlert(){
@@ -91,6 +93,37 @@ class ViewController: UIViewController {
         }
     }
     
+    func accessToken(with code:String){
+        
+        let url = URL(string: "https://www.reddit.com/api/v1/access_token")!
+        let session = URLSession.shared
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+
+        let username = clientId
+        let password = ""
+        let loginString = String(format: "%@:%@", username, password)
+        let loginData = loginString.data(using: String.Encoding.utf8)!
+        let base64LoginString = loginData.base64EncodedString()
+        
+        request.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        
+        let paramString = "grant_type=authorization_code&code=\(code)&redirect_uri=\(self.redirect_uri)"
+        
+        request.httpBody = paramString.data(using: String.Encoding.utf8)
+        
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+        
+        
+        let task = session.dataTask(with: request) { ( data, response, error) in
+            let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            print(dataString)
+        }
+  
+        task.resume()
+        
+    }
     
 }
 
