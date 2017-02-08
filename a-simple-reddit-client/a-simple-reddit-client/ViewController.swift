@@ -57,8 +57,38 @@ class ViewController: UIViewController {
     func oAuthDidReturn(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .oAuthDidReturn, object: nil)
         
+        print(notification.object)
+        
+        if(notification.object == nil){
+            presentErrorAlert()
+            return
+        }
+        
+        let authQueryString = notification.object as! String
+        
+        let authParams = authQueryString.components(separatedBy: "&")
+        
+        if(authParams.count==0 || !authQueryString.contains(self.securityAuthRandomString)){
+            presentErrorAlert()
+            return
+        }
         
         
+    }
+    
+    func presentErrorAlert(){
+        let errorAlert = UIAlertController(title: nil, message: NSLocalizedString("An unexpected error happened. Please try again.", comment: "Alert controller message presented when something wrong happen on user authentication"), preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Ok", comment: "Option from alert controller"), style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+                print("Cancel button pressed")
+        })
+        
+        errorAlert.addAction(cancelAction)
+        
+        self.present(errorAlert, animated: true) {
+            print("errorAlert presented")
+        }
     }
     
     
