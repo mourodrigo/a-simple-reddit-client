@@ -80,7 +80,8 @@ class Authorization {
         
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
         
-        
+        let requestDate = Date()
+
         let task = session.dataTask(with: request) { ( data, response, error) in
 
             do {
@@ -89,8 +90,12 @@ class Authorization {
 
                 print("tokenDidAuthorize \(JSONReturn)")
                 
-                self.token = NSDictionary.init(dictionary: JSONReturn)
+                self.token = NSMutableDictionary.init(dictionary: JSONReturn)
                 
+                let valid_through = requestDate.addingTimeInterval(TimeInterval.init(self.token["expires_in"] as! Int))
+                
+                self.token.setValue(valid_through, forKey: "valid_through") //using a Date to token validation keep it more simple
+
                 NotificationCenter.default.post(name:.tokenDidAuthorize, object: JSONReturn, userInfo: nil)
 
             }
@@ -106,6 +111,20 @@ class Authorization {
     func refreshToken(){
         
         getToken(with: "grant_type=refresh_token&refresh_token=\(self.token["refresh_token"]!)")
+    
+    }
+//    currentUser.token?.valid_through.isPassed()
+    func authorize(){
+        
+        //checks for token existance and expiration date
+        if (self.token.allKeys.count == 0 ||
+            (self.token.allKeys.count != 0  &&  (self.token["expires_in"] as! Date).isPassed() ) ) { //has a token, only need to refresh it
+
+            self.refreshToken()
+            
+        }else{// if user have to authorize with user/password
+            NotificationCenter.default.post(name:.oAuthNeedsUserLogin, object: nil, userInfo: nil)
+        }
     
     }
 }
