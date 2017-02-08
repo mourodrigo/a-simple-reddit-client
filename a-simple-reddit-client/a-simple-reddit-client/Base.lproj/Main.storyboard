@@ -77,13 +77,28 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="cBf-CA-K9d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aEd-tb-Wpb">
                             <size key="itemSize" width="358" height="114"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <view key="backgroundView" contentMode="scaleToFill" id="dDP-vh-EaK">
+                            <rect key="frame" x="0.0" y="-64" width="375" height="667"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="XwY-Rh-hAI">
+                                    <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                    <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="XwY-Rh-hAI" firstAttribute="centerY" secondItem="dDP-vh-EaK" secondAttribute="centerY" id="Ocd-z3-AiZ"/>
+                                <constraint firstItem="XwY-Rh-hAI" firstAttribute="centerX" secondItem="dDP-vh-EaK" secondAttribute="centerX" id="WMO-Sy-KCs"/>
+                            </constraints>
+                        </view>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PostCollectionViewCell" id="FdI-IT-0G8" customClass="PostCollectionViewCell" customModule="a_simple_reddit_client" customModuleProvider="target">
                                 <rect key="frame" x="9" y="0.0" width="358" height="114"/>
@@ -127,6 +142,7 @@
                                         </label>
                                     </subviews>
                                 </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="KJH-gh-IUF" firstAttribute="top" secondItem="DJb-ie-C7v" secondAttribute="bottom" constant="5" id="0X2-Yf-8Jv"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="hQ5-6r-mIs" secondAttribute="trailing" constant="0.5" id="6lK-27-kKL"/>
@@ -156,6 +172,9 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="LnD-4s-PCR"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5tK-jb-f1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -12,7 +12,11 @@ private let reuseIdentifier = "PostCollectionViewCell"
 
 class PostsCollectionViewController: UICollectionViewController {
 
+    @IBOutlet var backgroundView: UIView!
+    
     var posts: Array<[AnyHashable : AnyObject]> = []
+
+    let refresher = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,17 +25,29 @@ class PostsCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Do any additional setup after loading the view.
+    
+        self.collectionView!.alwaysBounceVertical = true
+        refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        collectionView!.addSubview(refresher)
+ 
+        
     }
 
+    func loadData(){
+        self.refresher.beginRefreshing()
+        fetchPosts()
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        fetchPosts()
-    }
     
+    override func viewDidAppear(_ animated: Bool) {
+        loadData()
+    }
+        
     func fetchPosts(){
      
         let url = URL(string: "https://www.reddit.com/top/.json")!
@@ -55,7 +71,12 @@ class PostsCollectionViewController: UICollectionViewController {
                 let JSONReturn = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! [AnyHashable : AnyObject]
                 
                 self.posts = JSONReturn["data"]?["children"] as! Array<[String : AnyObject]>
-                self.collectionView?.reloadData()
+               
+                DispatchQueue.main.async {
+                    self.refresher.endRefreshing()
+                    self.backgroundView.isHidden = true
+                    self.collectionView?.reloadData()
+                }
                 
             }
             catch {
