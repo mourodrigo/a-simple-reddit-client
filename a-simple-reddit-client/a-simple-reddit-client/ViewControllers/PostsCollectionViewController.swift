@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "PostCollectionViewCell"
 
 class PostsCollectionViewController: UICollectionViewController {
 
@@ -19,9 +19,6 @@ class PostsCollectionViewController: UICollectionViewController {
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
@@ -88,30 +85,22 @@ class PostsCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
 
-        let post = self.posts[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCollectionViewCell
         
-        let kind = post.first?.value as! String
-
+        let post = self.posts[indexPath.row]
         let data = post["data"] as! [String : AnyObject]
 
-        let author = data["author"]
-        let title = data["title"]
+        cell.authorLabel.text = data["author"] as? String
         
-        let date = data["created_utc"] //or created
+        cell.titleLabel.text = data["title"]  as? String
 
-        let numComments = data["num_comments"]
-        
-        
-        print(data)
+        cell.commentsLabel.text = String.init(format: "%d comments", data["num_comments"] as! Int)
 
-        
-        
-        
-        
-        // Configure the cell
-    
+        let date = data["created_utc"] as! TimeInterval
+
+        cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
+
         return cell
     }
 

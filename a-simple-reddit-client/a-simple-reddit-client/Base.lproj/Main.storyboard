@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -77,19 +78,86 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aEd-tb-Wpb">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="358" height="114"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FdI-IT-0G8">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PostCollectionViewCell" id="FdI-IT-0G8" customClass="PostCollectionViewCell" customModule="a_simple_reddit_client" customModuleProvider="target">
+                                <rect key="frame" x="9" y="0.0" width="358" height="114"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="114"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6DM-Qg-oTt">
+                                            <rect key="frame" x="0.0" y="0.0" width="358" height="114"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fp2-pB-GD0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="83" height="83"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="fp2-pB-GD0" secondAttribute="height" multiplier="1:1" id="r0W-UE-EvJ"/>
+                                                        <constraint firstAttribute="width" priority="999" constant="90" id="xOH-pC-b8G"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="cUa-ZV-76e">
+                                                    <rect key="frame" x="88" y="0.0" width="260" height="83"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non metus porttitor nisi fermentum imperdiet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="gG4-1u-2pb">
+                                                            <rect key="frame" x="0.0" y="0.0" width="260" height="45.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsi-a7-ZqO">
+                                                            <rect key="frame" x="0.0" y="48.5" width="260" height="15.5"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author name here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ5-6r-mIs">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="93.5" height="15.5"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="xx hours ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJb-ie-C7v">
+                                                                    <rect key="frame" x="93.5" y="0.0" width="166.5" height="15.5"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="42324 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJH-gh-IUF">
+                                                            <rect key="frame" x="0.0" y="67" width="260" height="16"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" priority="999" constant="260" id="Oi1-7q-L25"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fp2-pB-GD0" firstAttribute="leading" secondItem="6DM-Qg-oTt" secondAttribute="leading" id="ONp-zN-bWO"/>
+                                                <constraint firstItem="fp2-pB-GD0" firstAttribute="top" secondItem="6DM-Qg-oTt" secondAttribute="top" id="Zco-4z-ASE"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
                                 </view>
+                                <constraints>
+                                    <constraint firstItem="6DM-Qg-oTt" firstAttribute="leading" secondItem="FdI-IT-0G8" secondAttribute="leading" constant="5" id="NoB-8G-lSj"/>
+                                    <constraint firstItem="6DM-Qg-oTt" firstAttribute="top" secondItem="FdI-IT-0G8" secondAttribute="top" constant="5" id="UJC-6j-ix5"/>
+                                    <constraint firstAttribute="trailing" secondItem="6DM-Qg-oTt" secondAttribute="trailing" constant="5" id="nw1-GQ-01s"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="authorLabel" destination="hQ5-6r-mIs" id="MJt-xP-3Qh"/>
+                                    <outlet property="commentsLabel" destination="KJH-gh-IUF" id="VyZ-EJ-e4V"/>
+                                    <outlet property="dateAgoLabel" destination="DJb-ie-C7v" id="43c-h0-x9V"/>
+                                    <outlet property="imageView" destination="fp2-pB-GD0" id="hDM-SQ-DhQ"/>
+                                    <outlet property="titleLabel" destination="gG4-1u-2pb" id="QMJ-5X-V4J"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -101,7 +169,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5tK-jb-f1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1807" y="36"/>
+            <point key="canvasLocation" x="1805.5999999999999" y="35.532233883058474"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fsy-su-o4Y">
