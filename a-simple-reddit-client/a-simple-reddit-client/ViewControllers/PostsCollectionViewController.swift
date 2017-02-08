@@ -96,6 +96,14 @@ class PostsCollectionViewController: UICollectionViewController {
 
         let data = post["data"] as! [String : AnyObject]
 
+        let author = data["author"]
+        let title = data["title"]
+        
+        let date = data["created_utc"] //or created
+
+        let numComments = data["num_comments"]
+        
+        
         print(data)
 
         
