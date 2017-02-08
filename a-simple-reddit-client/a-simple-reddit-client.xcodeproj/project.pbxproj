@@ -15,6 +15,7 @@
 		304ABF571E4A937C005EFF41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 304ABF551E4A937C005EFF41 /* LaunchScreen.storyboard */; };
 		304ABF621E4A937D005EFF41 /* a_simple_reddit_clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF611E4A937D005EFF41 /* a_simple_reddit_clientTests.swift */; };
 		304ABF6D1E4A937D005EFF41 /* a_simple_reddit_clientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF6C1E4A937D005EFF41 /* a_simple_reddit_clientUITests.swift */; };
+		30BB1A231E4AB105004EA23C /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BB1A221E4AB105004EA23C /* Notification+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		304ABF681E4A937D005EFF41 /* a-simple-reddit-clientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "a-simple-reddit-clientUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		304ABF6C1E4A937D005EFF41 /* a_simple_reddit_clientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = a_simple_reddit_clientUITests.swift; sourceTree = "<group>"; };
 		304ABF6E1E4A937D005EFF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30BB1A221E4AB105004EA23C /* Notification+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Notification+Extension.swift"; path = "Extensions/Notification+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		304ABF481E4A937C005EFF41 /* a-simple-reddit-client */ = {
 			isa = PBXGroup;
 			children = (
+				30BB1A211E4AB0C9004EA23C /* Extensions */,
 				304ABF491E4A937C005EFF41 /* AppDelegate.swift */,
 				304ABF4B1E4A937C005EFF41 /* ViewController.swift */,
 				304ABF4D1E4A937C005EFF41 /* Main.storyboard */,
@@ -126,6 +129,14 @@
 				304ABF6E1E4A937D005EFF41 /* Info.plist */,
 			);
 			path = "a-simple-reddit-clientUITests";
+			sourceTree = "<group>";
+		};
+		30BB1A211E4AB0C9004EA23C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				30BB1A221E4AB105004EA23C /* Notification+Extension.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +278,7 @@
 			files = (
 				304ABF521E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld in Sources */,
 				304ABF4C1E4A937C005EFF41 /* ViewController.swift in Sources */,
+				30BB1A231E4AB105004EA23C /* Notification+Extension.swift in Sources */,
 				304ABF4A1E4A937C005EFF41 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +530,7 @@
 				304ABF731E4A937D005EFF41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		304ABF741E4A937D005EFF41 /* Build configuration list for PBXNativeTarget "a-simple-reddit-clientTests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +539,7 @@
 				304ABF761E4A937D005EFF41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		304ABF771E4A937D005EFF41 /* Build configuration list for PBXNativeTarget "a-simple-reddit-clientUITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +548,7 @@
 				304ABF791E4A937D005EFF41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

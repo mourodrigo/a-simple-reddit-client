@@ -47,10 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - External URL callback
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("App Bundle \(app)")
-        print("Scheme \(url.scheme)")
-        print("Query \(url.query)")
 
+        NotificationCenter.default.post(name:.oAuthDidReturn,
+                                        object: url.query,
+                                        userInfo: nil)
+        
         return true
     }
 
