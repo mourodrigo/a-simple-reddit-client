@@ -8,14 +8,20 @@
 
 import UIKit
 
-class PostsCollectionViewController: UICollectionViewController {
+class PostsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    //UICollectionViewLayout
+    var numberOfColumns = 1
+    let spacing = 4
+    var cellSize = CGSize.zero
+
+    //Loading and Refresh
     @IBOutlet var backgroundView: UIView!
-    
+    let refresher = UIRefreshControl()
+ 
+    //Datasource
     var posts: NSMutableArray = []
 
-    let refresher = UIRefreshControl()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,10 +42,14 @@ class PostsCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         updateDataSource()
     }
-        
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.updateCellSize()
+    }
+    
     func fetchPosts(after:String = ""){
         
         let url = URL(string: "https://www.reddit.com/top/.json?".appending(after))!
@@ -84,7 +94,6 @@ class PostsCollectionViewController: UICollectionViewController {
    // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -140,6 +149,8 @@ class PostsCollectionViewController: UICollectionViewController {
     
     }
     
+    
+    // MARK: UICollectionViewDataDelegate
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -155,5 +166,52 @@ class PostsCollectionViewController: UICollectionViewController {
         
     }
     
+    // MARK: UICollectionViewLayout
+    
+    func updateCellSize(tofit size:CGSize = UIScreen.main.bounds.size){
+        cellSize = self.getCellSize(tofit: size)  //calculates cell size
+    }
+    
+    func getCellSize(tofit size:CGSize = UIScreen.main.bounds.size) -> CGSize{
+        
+        let contentSize = size
+        
+        if(UIDevice.current.model=="iPhone" && UIDevice.current.orientation.isPortrait){
+            numberOfColumns = 1
+        }else if(UIDevice.current.model=="iPhone" && UIDevice.current.orientation.isLandscape){
+            numberOfColumns = 2
+        }else if(UIDevice.current.model=="iPad" && UIDevice.current.orientation.isPortrait){
+            numberOfColumns = 3
+        }else if(UIDevice.current.model=="iPad" && (UIDevice.current.orientation.isLandscape || UIDevice.current.orientation.isFlat)){
+            numberOfColumns = 4
+        }else{
+            numberOfColumns = 1
+        }
+        
+        let cellWidth = CGFloat.init((Int(contentSize.width)-(numberOfColumns*spacing)) / numberOfColumns)
+        return CGSize.init(width: cellWidth, height: cellWidth/2)  //calculate cell size
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return cellSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(spacing)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(spacing)
+    }
+
+    
+    
+    //MARK: - ORIENTATION
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView?.collectionViewLayout.invalidateLayout()
+        self.updateCellSize(tofit: size)
+    }
    
 }

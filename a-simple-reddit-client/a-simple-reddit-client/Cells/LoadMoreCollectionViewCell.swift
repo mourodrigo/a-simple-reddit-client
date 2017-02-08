@@ -11,6 +11,5 @@ import UIKit
 class LoadMoreCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var loadMoreLabel: UILabel!
-    @IBOutlet var activityView: UIActivityIndicatorView!
     
 }
