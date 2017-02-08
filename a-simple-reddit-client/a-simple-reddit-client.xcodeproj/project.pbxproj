@@ -22,6 +22,7 @@
 		5838FAF31E4B8C77006C9627 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5838FAF21E4B8C77006C9627 /* UIImageView+Extension.swift */; };
 		586E82631E4B359D00538DAD /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E82621E4B359D00538DAD /* Authorization.swift */; };
 		586E82651E4B48CC00538DAD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E82641E4B48CC00538DAD /* Date+Extension.swift */; };
+		58958F951E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58958F941E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		5838FAF21E4B8C77006C9627 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+Extension.swift"; path = "Extensions/UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		586E82621E4B359D00538DAD /* Authorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Authorization.swift; path = Singletones/Authorization.swift; sourceTree = "<group>"; };
 		586E82641E4B48CC00538DAD /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Extension.swift"; path = "Extensions/Date+Extension.swift"; sourceTree = "<group>"; };
+		58958F941E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadMoreCollectionViewCell.swift; path = Cells/LoadMoreCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				5838FAEF1E4B85AB006C9627 /* PostCollectionViewCell.swift */,
+				58958F941E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				5838FAF31E4B8C77006C9627 /* UIImageView+Extension.swift in Sources */,
 				304ABF521E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld in Sources */,
 				304ABF4C1E4A937C005EFF41 /* ViewController.swift in Sources */,
+				58958F951E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift in Sources */,
 				5838FAEE1E4B5782006C9627 /* PostsCollectionViewController.swift in Sources */,
 				30BB1A231E4AB105004EA23C /* Notification+Extension.swift in Sources */,
 				586E82631E4B359D00538DAD /* Authorization.swift in Sources */,

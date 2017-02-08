@@ -8,32 +8,24 @@
 
 import UIKit
 
-private let reuseIdentifier = "PostCollectionViewCell"
-
 class PostsCollectionViewController: UICollectionViewController {
 
     @IBOutlet var backgroundView: UIView!
     
-    var posts: Array<[AnyHashable : AnyObject]> = []
+    var posts: NSMutableArray = []
 
     let refresher = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Do any additional setup after loading the view.
-    
         self.collectionView!.alwaysBounceVertical = true
-        refresher.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        refresher.addTarget(self, action: #selector(updateDataSource), for: .valueChanged)
         collectionView!.addSubview(refresher)
- 
         
     }
 
-    func loadData(){
+    func updateDataSource(){
         self.refresher.beginRefreshing()
         fetchPosts()
     }
@@ -45,12 +37,12 @@ class PostsCollectionViewController: UICollectionViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        loadData()
+        updateDataSource()
     }
         
-    func fetchPosts(){
-     
-        let url = URL(string: "https://www.reddit.com/top/.json")!
+    func fetchPosts(after:String = ""){
+        
+        let url = URL(string: "https://www.reddit.com/top/.json?".appending(after))!
         let session = URLSession.shared
         
         var request = URLRequest(url: url)
@@ -70,7 +62,8 @@ class PostsCollectionViewController: UICollectionViewController {
                 
                 let JSONReturn = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! [AnyHashable : AnyObject]
                 
-                self.posts = JSONReturn["data"]?["children"] as! Array<[String : AnyObject]>
+                let postsArray = JSONReturn["data"]?["children"] as! Array<[String : AnyObject]>
+                self.posts.addObjects(from: postsArray)
                
                 DispatchQueue.main.async {
                     self.refresher.endRefreshing()
@@ -88,17 +81,7 @@ class PostsCollectionViewController: UICollectionViewController {
         
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    // MARK: UICollectionViewDataSource
+   // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -107,70 +90,70 @@ class PostsCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return posts.count
+        if ( refresher.isRefreshing || posts.count == 0) {
+            return posts.count
+        }
+        if ( !refresher.isRefreshing ) {
+            return posts.count+1 //for load more label at the bottom
+        }
+        return 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCollectionViewCell
-        
-        let post = self.posts[indexPath.row]
-        let data = post["data"] as! [String : AnyObject]
-
-        cell.authorLabel.text = data["author"] as? String
-        
-        cell.titleLabel.text = data["title"]  as? String
-
-        cell.commentsLabel.text = String.init(format: "%d comments", data["num_comments"] as! Int)
-
-        let date = data["created_utc"] as! TimeInterval
-
-        cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
-
-        let thumbnail = data["thumbnail"] as! String
-        
-        if(thumbnail.isURL){
-            
-            cell.imageView.downloadedFrom(link: thumbnail)
+        if(indexPath.row == self.posts.count){
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LoadMoreCollectionViewCell", for: indexPath) as! LoadMoreCollectionViewCell
+            return cell
             
         }else{
-
-            print("not URL")
-        }
         
-        return cell
-    }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCollectionViewCell", for: indexPath) as! PostCollectionViewCell
+            
+            let content = self.posts[indexPath.row] as! NSDictionary
+            
+            let data = content.value(forKey: "data") as! NSDictionary
+            
+            cell.authorLabel.text = data.value(forKey: "author") as? String
 
-    // MARK: UICollectionViewDelegate
+            cell.titleLabel.text = data.value(forKey: "title")  as? String
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
+            cell.commentsLabel.text = String.init(format: "%d comments", data.value(forKey: "num_comments") as! Int)
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
+            let date = data.value(forKey: "created_utc") as! TimeInterval
 
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
+            cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
 
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
+            let thumbnail = data.value(forKey: "thumbnail") as! String
+            
+            if(thumbnail.isURL){
+                
+                cell.imageView.downloadedFrom(link: thumbnail)
+                
+            }else{
 
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+                cell.imageView.image = UIImage.init(named: "imageIcon")
+
+            }
+            
+            return cell
+        }
     
     }
-    */
+    
 
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if(indexPath.row == posts.count && !refresher.isRefreshing){ // the load more label
+            let content = self.posts[indexPath.row-1] as! NSDictionary
+            
+            let data = content.value(forKey: "data") as! NSDictionary
+            
+            let after = data.value(forKey: "name") as! String
+            
+            self.fetchPosts(after: "count=\(self.posts.count)&after=\(after)")
+        }
+        
+    }
+    
+   
 }

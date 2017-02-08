@@ -74,7 +74,7 @@
         <scene sceneID="20C-nG-kbI">
             <objects>
                 <collectionViewController restorationIdentifier="PostsCollectionViewController" storyboardIdentifier="PostsCollectionViewController" title="PostsCollectionViewController" id="Aea-Hk-7eL" customClass="PostsCollectionViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="cBf-CA-K9d">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="cBf-CA-K9d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -163,6 +163,36 @@
                                     <outlet property="dateAgoLabel" destination="DJb-ie-C7v" id="43c-h0-x9V"/>
                                     <outlet property="imageView" destination="9Le-JS-srt" id="dTR-Kp-ky4"/>
                                     <outlet property="titleLabel" destination="gG4-1u-2pb" id="QMJ-5X-V4J"/>
+                                </connections>
+                            </collectionViewCell>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadMoreCollectionViewCell" id="zYb-rl-5kJ" customClass="LoadMoreCollectionViewCell" customModule="a_simple_reddit_client" customModuleProvider="target">
+                                <rect key="frame" x="9" y="124" width="358" height="114"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="114"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6vf-ui-EqI">
+                                            <rect key="frame" x="161" y="39" width="37" height="37"/>
+                                            <color key="color" red="0.26274509800000001" green="0.25882352939999997" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load more" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8c-rX-TZu">
+                                            <rect key="frame" x="138.5" y="47" width="81.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="6vf-ui-EqI" firstAttribute="centerX" secondItem="zYb-rl-5kJ" secondAttribute="centerX" id="76H-7w-gQT"/>
+                                    <constraint firstItem="6vf-ui-EqI" firstAttribute="centerY" secondItem="zYb-rl-5kJ" secondAttribute="centerY" id="Cog-3r-lLf"/>
+                                    <constraint firstItem="x8c-rX-TZu" firstAttribute="centerY" secondItem="zYb-rl-5kJ" secondAttribute="centerY" id="ShT-5J-sc4"/>
+                                    <constraint firstItem="x8c-rX-TZu" firstAttribute="centerX" secondItem="zYb-rl-5kJ" secondAttribute="centerX" id="zHV-og-xiK"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="activityView" destination="6vf-ui-EqI" id="5gt-OC-hci"/>
+                                    <outlet property="loadMoreLabel" destination="x8c-rX-TZu" id="jxn-38-Tuo"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
