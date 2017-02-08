@@ -18,6 +18,8 @@ class Authorization {
     let scope = "read"
     let redirect_uri = "mourodrigo.a-simple-reddit-client://callback"
 
+    var token = NSDictionary()
+    
     static let sharedInstance: Authorization = {
         let instance = Authorization()
         return instance
@@ -82,22 +84,24 @@ class Authorization {
         
         
         let task = session.dataTask(with: request) { ( data, response, error) in
-            let dataString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
 
-            NotificationCenter.default.post(name:.tokenDidAuthorize,
-                                            object: dataString,
-                                            userInfo: nil)
+            do {
             
+                let JSONReturn = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! [String : AnyObject]
+
+                print("tokenDidAuthorize \(JSONReturn)")
+                
+                self.token = NSDictionary.init(dictionary: JSONReturn)
+                
+                NotificationCenter.default.post(name:.tokenDidAuthorize, object: JSONReturn, userInfo: nil)
+
+            }
+            catch {
+                NotificationCenter.default.post(name:.oAuthDidFail, object: nil, userInfo: nil)
+            }
         }
         
         task.resume()
         
-    }
-    
-    
-    
-    
-    
-    
-    
+    }  
 }

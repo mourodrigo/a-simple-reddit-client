@@ -70,7 +70,14 @@ class ViewController: UIViewController {
     
     func tokenDidAuthorize(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .tokenDidAuthorize, object: nil)
-//        let <#T##Any?#> = notification.object
+
+        if(notification.object == nil){
+            presentErrorAlert()
+            return
+        }
+        
+        let token = notification.object as! NSDictionary
+        
     }
     
 
