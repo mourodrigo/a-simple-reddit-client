@@ -113,29 +113,26 @@
                                                 <constraint firstAttribute="width" secondItem="9Le-JS-srt" secondAttribute="height" multiplier="1:1" id="6Za-7f-yN9"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non metus porttitor nisi fermentum imperdiet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="gG4-1u-2pb">
-                                            <rect key="frame" x="114" y="5" width="231" height="40"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="r7U-Ul-Ujf"/>
-                                            </constraints>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" text="Title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis non metus porttitor nisi fermentum imperdiet." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="gG4-1u-2pb">
+                                            <rect key="frame" x="114" y="5" width="231" height="61.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="42324 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJH-gh-IUF">
-                                            <rect key="frame" x="114" y="95" width="94.5" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="756" text="42324 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJH-gh-IUF">
+                                            <rect key="frame" x="114" y="95.5" width="94.5" height="13.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author name here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQ5-6r-mIs">
-                                            <rect key="frame" x="256" y="76" width="93.5" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author name here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hQ5-6r-mIs">
+                                            <rect key="frame" x="256" y="76.5" width="93.5" height="14"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="xx hours ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJb-ie-C7v">
-                                            <rect key="frame" x="114" y="76" width="67.5" height="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" verticalCompressionResistancePriority="754" text="xx hours ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DJb-ie-C7v">
+                                            <rect key="frame" x="114" y="76.5" width="67.5" height="14"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -153,7 +150,9 @@
                                     <constraint firstItem="gG4-1u-2pb" firstAttribute="top" secondItem="9Le-JS-srt" secondAttribute="top" id="Ts4-w8-Ihu"/>
                                     <constraint firstAttribute="bottom" secondItem="9Le-JS-srt" secondAttribute="bottom" constant="5" id="XSt-tN-4mG"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="gG4-1u-2pb" secondAttribute="trailing" constant="5" id="a0b-U8-jrR"/>
+                                    <constraint firstItem="DJb-ie-C7v" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gG4-1u-2pb" secondAttribute="bottom" constant="5" id="hUr-os-mj8"/>
                                     <constraint firstItem="9Le-JS-srt" firstAttribute="leading" secondItem="FdI-IT-0G8" secondAttribute="leading" constant="5" id="qfb-hA-8vw"/>
+                                    <constraint firstItem="hQ5-6r-mIs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DJb-ie-C7v" secondAttribute="trailing" constant="1" id="r8Z-vN-Fz2"/>
                                     <constraint firstItem="9Le-JS-srt" firstAttribute="top" secondItem="FdI-IT-0G8" secondAttribute="top" constant="5" id="tnD-ca-es3"/>
                                     <constraint firstItem="KJH-gh-IUF" firstAttribute="bottom" secondItem="9Le-JS-srt" secondAttribute="bottom" id="vq6-Gn-JOr"/>
                                 </constraints>
