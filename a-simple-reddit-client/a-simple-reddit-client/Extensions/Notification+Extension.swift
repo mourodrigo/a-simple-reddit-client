@@ -11,5 +11,7 @@ import Foundation
 extension Notification.Name {
 
     static let oAuthDidReturn = Notification.Name("OAuthDidReturn")
-    
+    static let oAuthDidFail = Notification.Name("oAuthDidFail")
+    static let tokenDidAuthorize = Notification.Name("tokenDidAuthorize")
+
 }
