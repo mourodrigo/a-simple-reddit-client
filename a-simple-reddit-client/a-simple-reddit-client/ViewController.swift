@@ -82,7 +82,9 @@ class ViewController: UIViewController {
             return
         }
         
-        let token = notification.object as! NSDictionary
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "ShowPostsNavigation", sender: self)
+        }
         
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="va7-Se-fx5">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -43,9 +43,81 @@
                             <constraint firstItem="jS7-a7-xvQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ooi-sJ-DvE"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="nTp-QZ-HWz"/>
+                    <connections>
+                        <segue destination="pa9-iW-TCT" kind="show" identifier="ShowPostsNavigation" id="Mxm-CZ-ST6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-47" y="36"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lvN-RY-Hn1">
+            <objects>
+                <navigationController id="pa9-iW-TCT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yP9-CH-ZtS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Aea-Hk-7eL" kind="relationship" relationship="rootViewController" id="NAD-Fo-sEp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gW-g4-J24" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="865" y="36"/>
+        </scene>
+        <!--PostsCollectionViewController-->
+        <scene sceneID="20C-nG-kbI">
+            <objects>
+                <collectionViewController restorationIdentifier="PostsCollectionViewController" storyboardIdentifier="PostsCollectionViewController" title="PostsCollectionViewController" id="Aea-Hk-7eL" customClass="PostsCollectionViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="cBf-CA-K9d">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aEd-tb-Wpb">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FdI-IT-0G8">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="Aea-Hk-7eL" id="dt4-JV-h5x"/>
+                            <outlet property="delegate" destination="Aea-Hk-7eL" id="Lkv-rx-lAQ"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="LnD-4s-PCR"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5tK-jb-f1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1807" y="36"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Fsy-su-o4Y">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rva-0u-xdI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="va7-Se-fx5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rGp-IU-0fc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Aha-s8-mpk"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-966" y="36"/>
         </scene>
     </scenes>
 </document>
