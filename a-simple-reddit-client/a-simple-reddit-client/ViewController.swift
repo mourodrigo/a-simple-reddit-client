@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     
     func login(){
         NotificationCenter.default.addObserver(self, selector: #selector(tokenDidAuthorize(notification:)), name: .tokenDidAuthorize, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(oAuthDidFail), name: .oAuthDidFail, object: nil)
 
         Authorization.sharedInstance.prepareForAuthorize()
         self.openOnBrowser(url: Authorization.sharedInstance.authURL())
@@ -58,6 +59,13 @@ class ViewController: UIViewController {
         self.present(errorAlert, animated: true) {
             print("errorAlert presented")
         }
+    }
+    
+    func oAuthDidFail(){
+        NotificationCenter.default.removeObserver(self, name: .oAuthDidFail, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .tokenDidAuthorize, object: nil)
+        
+        presentErrorAlert()
     }
     
     func tokenDidAuthorize(notification:Notification) -> Void {
