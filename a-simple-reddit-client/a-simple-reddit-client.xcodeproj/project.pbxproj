@@ -19,6 +19,7 @@
 		30BB1A271E4AC4D3004EA23C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BB1A261E4AC4D3004EA23C /* String+Extension.swift */; };
 		5838FAEE1E4B5782006C9627 /* PostsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5838FAED1E4B5782006C9627 /* PostsCollectionViewController.swift */; };
 		5838FAF01E4B85AB006C9627 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5838FAEF1E4B85AB006C9627 /* PostCollectionViewCell.swift */; };
+		5838FAF31E4B8C77006C9627 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5838FAF21E4B8C77006C9627 /* UIImageView+Extension.swift */; };
 		586E82631E4B359D00538DAD /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E82621E4B359D00538DAD /* Authorization.swift */; };
 		586E82651E4B48CC00538DAD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E82641E4B48CC00538DAD /* Date+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -59,6 +60,7 @@
 		30BB1A261E4AC4D3004EA23C /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Extensions/String+Extension.swift"; sourceTree = "<group>"; };
 		5838FAED1E4B5782006C9627 /* PostsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostsCollectionViewController.swift; path = ViewControllers/PostsCollectionViewController.swift; sourceTree = "<group>"; };
 		5838FAEF1E4B85AB006C9627 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostCollectionViewCell.swift; path = Cells/PostCollectionViewCell.swift; sourceTree = "<group>"; };
+		5838FAF21E4B8C77006C9627 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+Extension.swift"; path = "Extensions/UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		586E82621E4B359D00538DAD /* Authorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Authorization.swift; path = Singletones/Authorization.swift; sourceTree = "<group>"; };
 		586E82641E4B48CC00538DAD /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Extension.swift"; path = "Extensions/Date+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				30BB1A221E4AB105004EA23C /* Notification+Extension.swift */,
+				5838FAF21E4B8C77006C9627 /* UIImageView+Extension.swift */,
 				30BB1A261E4AC4D3004EA23C /* String+Extension.swift */,
 				586E82641E4B48CC00538DAD /* Date+Extension.swift */,
 			);
@@ -315,6 +318,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5838FAF31E4B8C77006C9627 /* UIImageView+Extension.swift in Sources */,
 				304ABF521E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld in Sources */,
 				304ABF4C1E4A937C005EFF41 /* ViewController.swift in Sources */,
 				5838FAEE1E4B5782006C9627 /* PostsCollectionViewController.swift in Sources */,

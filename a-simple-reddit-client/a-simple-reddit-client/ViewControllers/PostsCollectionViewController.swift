@@ -101,6 +101,8 @@ class PostsCollectionViewController: UICollectionViewController {
 
         cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
 
+        cell.imageView.downloadedFrom(link: data["thumbnail"] as! String)
+        
         return cell
     }
 
