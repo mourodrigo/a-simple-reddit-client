@@ -15,5 +15,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     @IBOutlet var authorLabel: UILabel!
     @IBOutlet var dateAgoLabel: UILabel!
     @IBOutlet var commentsLabel: UILabel!
-    
+
+        
 }
+

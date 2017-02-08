@@ -31,4 +31,13 @@ extension String {
         return components
     }
     
+    var isURL: Bool {
+        // create NSURL instance
+        if let url = NSURL(string: self) {
+            // check if your application can open the NSURL instance
+            return UIApplication.shared.canOpenURL(url as URL)
+        }
+        return false
+    }
+    
 }

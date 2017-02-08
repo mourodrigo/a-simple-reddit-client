@@ -41,8 +41,14 @@ class PostsCollectionViewController: UICollectionViewController {
         request.httpMethod = "GET"
         
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+
+        request.timeoutInterval = 30
         
         let task = session.dataTask(with: request) { ( data, response, error) in
+            
+            if(error != nil){
+                print("AN ERROR OCURRED")
+            }
             
             do {
                 
@@ -101,7 +107,16 @@ class PostsCollectionViewController: UICollectionViewController {
 
         cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
 
-        cell.imageView.downloadedFrom(link: data["thumbnail"] as! String)
+        let thumbnail = data["thumbnail"] as! String
+        
+        if(thumbnail.isURL){
+            
+            cell.imageView.downloadedFrom(link: thumbnail)
+            
+        }else{
+
+            print("not URL")
+        }
         
         return cell
     }
