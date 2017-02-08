@@ -44,6 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
 
+    // MARK: - External URL callback
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("App Bundle \(app)")
+        print("Scheme \(url.scheme)")
+        print("Query \(url.query)")
+
+        return true
+    }
+
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
