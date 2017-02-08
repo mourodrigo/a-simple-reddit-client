@@ -27,10 +27,16 @@ class ViewController: UIViewController {
     func login(){
         NotificationCenter.default.addObserver(self, selector: #selector(tokenDidAuthorize(notification:)), name: .tokenDidAuthorize, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(oAuthDidFail), name: .oAuthDidFail, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(oAuthNeedsUserLogin(notification:)), name: .oAuthNeedsUserLogin, object: nil)
 
-        Authorization.sharedInstance.prepareForAuthorize()
+        Authorization.sharedInstance.authorize()
+
+    }
+    
+    func oAuthNeedsUserLogin(notification:Notification) -> Void {
+        NotificationCenter.default.removeObserver(self, name: .oAuthNeedsUserLogin, object: nil)
         self.openOnBrowser(url: Authorization.sharedInstance.authURL())
-
+    
     }
     
     func openOnBrowser(url: String) {

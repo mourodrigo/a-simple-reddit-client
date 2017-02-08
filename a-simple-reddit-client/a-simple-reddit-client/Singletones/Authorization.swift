@@ -90,7 +90,16 @@ class Authorization {
 
                 print("tokenDidAuthorize \(JSONReturn)")
                 
-                self.token = NSMutableDictionary.init(dictionary: JSONReturn)
+                if(self.token.allKeys.count==0){ // this is for the first access token request
+
+                    self.token = NSMutableDictionary.init(dictionary: JSONReturn)
+                
+                }else{ // and this is for token refresh, so just update the access_token
+                    
+                    let JSONDictionary = NSMutableDictionary.init(dictionary: JSONReturn)
+                    self.token.setValue(JSONDictionary.value(forKey: "access_token"), forKey: "access_token")
+                
+                }
                 
                 let valid_through = requestDate.addingTimeInterval(TimeInterval.init(self.token["expires_in"] as! Int))
                 
@@ -113,17 +122,20 @@ class Authorization {
         getToken(with: "grant_type=refresh_token&refresh_token=\(self.token["refresh_token"]!)")
     
     }
-//    currentUser.token?.valid_through.isPassed()
-    func authorize(){
-        
-        //checks for token existance and expiration date
-        if (self.token.allKeys.count == 0 ||
-            (self.token.allKeys.count != 0  &&  (self.token["expires_in"] as! Date).isPassed() ) ) { //has a token, only need to refresh it
 
-            self.refreshToken()
-            
-        }else{// if user have to authorize with user/password
+    func authorize(){
+        prepareForAuthorize()
+        //checks for token existance and expiration date
+        
+        if (self.token.allKeys.count == 0 ) { // // if user have to authorize with user/password
+
             NotificationCenter.default.post(name:.oAuthNeedsUserLogin, object: nil, userInfo: nil)
+            
+        }else if (self.token.allKeys.count != 0  &&  (self.token["valid_through"] as! Date).isPassed() ) { // has a token, just have to refresh it
+            refreshToken()
+
+        }else{// has a valid token
+            NotificationCenter.default.post(name:.tokenDidAuthorize, object: self.token, userInfo: nil)
         }
     
     }
