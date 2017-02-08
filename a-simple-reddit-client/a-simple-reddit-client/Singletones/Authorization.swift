@@ -124,6 +124,10 @@ class Authorization {
     }
 
     func authorize(){
+        print("TODO REMOVE THIS TELETAR")
+//        let date = Date().addingTimeInterval(TimeInterval.init(192837461298374))
+//        token = NSDictionary(dictionary: ["access_token": "tBP3QqsuHsRIEmz7sr1591Zh6cY", "valid_through" : date])
+
         prepareForAuthorize()
         //checks for token existance and expiration date
         

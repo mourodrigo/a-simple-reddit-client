@@ -12,6 +12,8 @@ private let reuseIdentifier = "Cell"
 
 class PostsCollectionViewController: UICollectionViewController {
 
+    var posts: Array<[AnyHashable : AnyObject]> = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +31,39 @@ class PostsCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        fetchPosts()
+    }
+    
+    func fetchPosts(){
+     
+        let url = URL(string: "https://www.reddit.com/top/.json")!
+        let session = URLSession.shared
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
+        
+        let task = session.dataTask(with: request) { ( data, response, error) in
+            
+            do {
+                
+                let JSONReturn = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! [AnyHashable : AnyObject]
+                
+                self.posts = JSONReturn["data"]?["children"] as! Array<[String : AnyObject]>
+                self.collectionView?.reloadData()
+                
+            }
+            catch {
+                NotificationCenter.default.post(name:.oAuthDidFail, object: nil, userInfo: nil)
+            }
+        }
+        
+        task.resume()
+        
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -43,18 +78,30 @@ class PostsCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return posts.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
+
+        let post = self.posts[indexPath.row]
+        
+        let kind = post.first?.value as! String
+
+        let data = post["data"] as! [String : AnyObject]
+
+        print(data)
+
+        
+        
+        
+        
         // Configure the cell
     
         return cell
