@@ -18,7 +18,7 @@ class Authorization {
     let scope = "read"
     let redirect_uri = "mourodrigo.a-simple-reddit-client://callback"
 
-    var token = NSDictionary()
+    var token = NSMutableDictionary()
     
     static let sharedInstance: Authorization = {
         let instance = Authorization()
@@ -93,18 +93,28 @@ class Authorization {
                 if(self.token.allKeys.count==0){ // this is for the first access token request
 
                     self.token = NSMutableDictionary.init(dictionary: JSONReturn)
-                
+                    
+                    //save all to user default so we done have to call for login when user returns to the app
+                    UserDefaults.standard.setValue(self.token.value(forKey: "access_token"), forKey: "access_token")
+                    UserDefaults.standard.setValue(self.token.value(forKey: "expires_in"), forKey: "expires_in")
+                    UserDefaults.standard.setValue(self.token.value(forKey: "scope"), forKey: "scope")
+                    UserDefaults.standard.setValue(self.token.value(forKey: "token_type"), forKey: "token_type")
+                  
+                    
                 }else{ // and this is for token refresh, so just update the access_token
                     
                     let JSONDictionary = NSMutableDictionary.init(dictionary: JSONReturn)
                     self.token.setValue(JSONDictionary.value(forKey: "access_token"), forKey: "access_token")
+                    UserDefaults.standard.setValue(self.token.value(forKey: "access_token"), forKey: "access_token")
                 
                 }
                 
                 let valid_through = requestDate.addingTimeInterval(TimeInterval.init(self.token["expires_in"] as! Int))
                 
                 self.token.setValue(valid_through, forKey: "valid_through") //using a Date to token validation keep it more simple
+                UserDefaults.standard.setValue(self.token.value(forKey: "valid_through"), forKey: "valid_through")
 
+                
                 NotificationCenter.default.post(name:.tokenDidAuthorize, object: JSONReturn, userInfo: nil)
 
             } catch {
@@ -122,10 +132,25 @@ class Authorization {
     
     }
 
+
+    func restoreFromUserDefault(key:String){
+        self.token.setValue(UserDefaults.standard.value(forKey: key), forKey: key)
+    }
+    
     func authorize(){
      
         prepareForAuthorize()
-
+        
+        if( UserDefaults.standard.value(forKey: "access_token") != nil ){
+            restoreFromUserDefault(key: "access_token")
+            restoreFromUserDefault(key: "expires_in")
+            restoreFromUserDefault(key: "refresh_token")
+            restoreFromUserDefault(key: "scope")
+            restoreFromUserDefault(key: "token_type")
+            restoreFromUserDefault(key: "valid_through")
+        }
+        
+        
         //checks for token existance and expiration date
         
         if (self.token.allKeys.count == 0 ) { // // if user have to authorize with user/password
