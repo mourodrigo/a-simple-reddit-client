@@ -116,11 +116,24 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             
         }else{
         
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PostCollectionViewCell", for: indexPath) as! PostCollectionViewCell
-            
             let content = self.posts[indexPath.row] as! NSDictionary
             
             let data = content.value(forKey: "data") as! NSDictionary
+           
+            let thumbnail = data.value(forKey: "thumbnail") as! String
+            
+            var reuseIdentifier = ""
+            var image:UIImage?
+            
+            if(thumbnail.isURL){
+                reuseIdentifier = "PostCollectionViewCell"
+                
+            }else{
+                image = UIImage.init(named: "imageIcon")
+                reuseIdentifier = "NoImagePostCollectionViewCell"
+            }
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCollectionViewCell
             
             cell.authorLabel.text = data.value(forKey: "author") as? String
 
@@ -132,18 +145,12 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
             cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
 
-            let thumbnail = data.value(forKey: "thumbnail") as! String
-            
-            if(thumbnail.isURL){
-                
+            if(image==nil){
                 cell.imageView.downloadedFrom(link: thumbnail)
-                
             }else{
-
-                cell.imageView.image = UIImage.init(named: "imageIcon")
-
+                cell.imageView.image = image
             }
-            
+
             return cell
         }
     
