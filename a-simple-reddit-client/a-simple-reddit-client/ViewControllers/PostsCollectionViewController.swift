@@ -137,7 +137,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
                 reuseIdentifier = "PostCollectionViewCell"
                 
             }else{
-                image = UIImage.init(named: "imageIcon")
+                image = UIImage.init(named: "externalLink")
                 reuseIdentifier = "NoImagePostCollectionViewCell"
             }
             
