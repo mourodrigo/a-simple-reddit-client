@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -29,14 +29,6 @@
                                     <action selector="didPressLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q6g-sO-lYY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3I4-9e-uZo">
-                                <rect key="frame" x="161" y="391" width="53" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Refresh"/>
-                                <connections>
-                                    <action selector="refresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l5q-97-R8C"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -45,13 +37,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nTp-QZ-HWz"/>
-                    <connections>
-                        <segue destination="pa9-iW-TCT" kind="show" identifier="ShowPostsNavigation" id="Mxm-CZ-ST6"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-47" y="36"/>
+            <point key="canvasLocation" x="2950" y="-1051"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lvN-RY-Hn1">
@@ -67,7 +56,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gW-g4-J24" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="865" y="36"/>
+            <point key="canvasLocation" x="1127" y="36"/>
         </scene>
         <!--PostsCollectionViewController-->
         <scene sceneID="20C-nG-kbI">
@@ -100,10 +89,10 @@
                         </view>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PostCollectionViewCell" id="FdI-IT-0G8" customClass="PostCollectionViewCell" customModule="a_simple_reddit_client" customModuleProvider="target">
-                                <rect key="frame" x="8.5" y="0.0" width="358" height="114"/>
+                                <rect key="frame" x="9" y="0.0" width="358" height="114"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="359" height="114"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="114"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Le-JS-srt">
@@ -202,10 +191,10 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NoImagePostCollectionViewCell" id="wZz-Hh-zpl" customClass="PostCollectionViewCell" customModule="a_simple_reddit_client" customModuleProvider="target">
-                                <rect key="frame" x="8.5" y="124" width="358" height="114"/>
+                                <rect key="frame" x="9" y="124" width="358" height="114"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="359" height="114"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="114"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1tp-9u-pdL">
@@ -275,10 +264,10 @@
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadMoreCollectionViewCell" id="zYb-rl-5kJ" customClass="LoadMoreCollectionViewCell" customModule="a_simple_reddit_client" customModuleProvider="target">
-                                <rect key="frame" x="8.5" y="248" width="358" height="114"/>
+                                <rect key="frame" x="9" y="248" width="358" height="114"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="359" height="114"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="114"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to load more." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8c-rX-TZu">
@@ -308,6 +297,7 @@
                         <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
                         <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="eYJ-me-2WI"/>
                         <segue destination="EUb-D1-vzN" kind="show" identifier="ShowWebViewController" id="spY-Bz-pLW"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="PresentLoginViewController" id="HdQ-qr-cgp"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5tK-jb-f1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -371,22 +361,6 @@
             </objects>
             <point key="canvasLocation" x="2950" y="-283"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Fsy-su-o4Y">
-            <objects>
-                <navigationController id="va7-Se-fx5" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rGp-IU-0fc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Aha-s8-mpk"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rva-0u-xdI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-966" y="36"/>
-        </scene>
         <!--Web View Controller-->
         <scene sceneID="07r-o1-MOz">
             <objects>
@@ -423,7 +397,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8by-MM-l7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3673" y="421"/>
+            <point key="canvasLocation" x="2950" y="435"/>
         </scene>
     </scenes>
 </document>

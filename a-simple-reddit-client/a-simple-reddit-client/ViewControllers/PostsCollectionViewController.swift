@@ -25,43 +25,60 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //notifications for token authorization
+//        NotificationCenter.default.addObserver(self, selector: #selector(tokenDidAuthorize(notification:)), name: .tokenDidAuthorize, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentUserLoginControll(notification:)), name: .oAuthDidFail, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(presentUserLoginControll(notification:)), name: .oAuthNeedsUserLogin, object: nil)
+        
+        //notifications for user actions
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapImageButton(notification:)), name: .didTapImageButton, object: nil)
+ 
+        //refresh controller for pull-to-refresh on collectionview
         self.collectionView!.alwaysBounceVertical = true
         refresher.addTarget(self, action: #selector(updateDataSource), for: .valueChanged)
         collectionView!.addSubview(refresher)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(didTapImageButton(notification:)), name: .didTapImageButton, object: nil)
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    // MARK: User Authentication
+    func presentUserLoginControll(notification:Notification) -> Void {
+        self.performSegue(withIdentifier: "PresentLoginViewController", sender: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        updateDataSource()
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         self.updateCellSize()
+        
+        Authorization.sharedInstance.authorize()
+        
+        updateDataSource()
+    
     }
     
     // MARK: UICollectionViewDataSource
     
     func updateDataSource(){
         
-        self.refresher.beginRefreshing()
-        fetchPosts()
-        
+        if (Authorization.sharedInstance.token.allKeys.count>0){
+            self.refresher.beginRefreshing()
+            fetchPosts()
+        }
+
     }
     
     func fetchPosts(after:String = ""){
         
-        let url = URL(string: "https://www.reddit.com/top/.json?".appending(after))!
+        let url = URL(string: "http://oauth.reddit.com/top/.json?".appending(after))!
         let session = URLSession.shared
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        
+        request.setValue("Bearer \(Authorization.sharedInstance.token.value(forKey: "access_token") as! String)", forHTTPHeaderField: "Authorization")
         
         request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
 

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		304ABF4A1E4A937C005EFF41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF491E4A937C005EFF41 /* AppDelegate.swift */; };
-		304ABF4C1E4A937C005EFF41 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF4B1E4A937C005EFF41 /* ViewController.swift */; };
 		304ABF4F1E4A937C005EFF41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 304ABF4D1E4A937C005EFF41 /* Main.storyboard */; };
 		304ABF521E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF501E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld */; };
 		304ABF541E4A937C005EFF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 304ABF531E4A937C005EFF41 /* Assets.xcassets */; };
@@ -24,6 +23,7 @@
 		5867DE951E4C8D1D00F62EBF /* FullScreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5867DE941E4C8D1D00F62EBF /* FullScreenImageViewController.swift */; };
 		586E82631E4B359D00538DAD /* Authorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E82621E4B359D00538DAD /* Authorization.swift */; };
 		586E82651E4B48CC00538DAD /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586E82641E4B48CC00538DAD /* Date+Extension.swift */; };
+		588B67881E4CE19000FA6F3E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588B67871E4CE19000FA6F3E /* LoginViewController.swift */; };
 		58958F951E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58958F941E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,7 +47,6 @@
 /* Begin PBXFileReference section */
 		304ABF461E4A937C005EFF41 /* a-simple-reddit-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "a-simple-reddit-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		304ABF491E4A937C005EFF41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		304ABF4B1E4A937C005EFF41 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		304ABF4E1E4A937C005EFF41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		304ABF511E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = a_simple_reddit_client.xcdatamodel; sourceTree = "<group>"; };
 		304ABF531E4A937C005EFF41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +67,7 @@
 		5867DE941E4C8D1D00F62EBF /* FullScreenImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FullScreenImageViewController.swift; path = ViewControllers/FullScreenImageViewController.swift; sourceTree = "<group>"; };
 		586E82621E4B359D00538DAD /* Authorization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Authorization.swift; path = Singletones/Authorization.swift; sourceTree = "<group>"; };
 		586E82641E4B48CC00538DAD /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Date+Extension.swift"; path = "Extensions/Date+Extension.swift"; sourceTree = "<group>"; };
+		588B67871E4CE19000FA6F3E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ViewControllers/LoginViewController.swift; sourceTree = "<group>"; };
 		58958F941E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadMoreCollectionViewCell.swift; path = Cells/LoadMoreCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,7 +124,6 @@
 				304ABF551E4A937C005EFF41 /* LaunchScreen.storyboard */,
 				586E82611E4B355A00538DAD /* Singletones */,
 				586E82601E4B355400538DAD /* ViewControllers */,
-				304ABF4B1E4A937C005EFF41 /* ViewController.swift */,
 				5838FAF11E4B85B4006C9627 /* Cells */,
 				30BB1A211E4AB0C9004EA23C /* Extensions */,
 				304ABF531E4A937C005EFF41 /* Assets.xcassets */,
@@ -175,6 +174,7 @@
 		586E82601E4B355400538DAD /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				588B67871E4CE19000FA6F3E /* LoginViewController.swift */,
 				5838FAED1E4B5782006C9627 /* PostsCollectionViewController.swift */,
 				580407511E4CAD8B001FFDC6 /* WebViewController.swift */,
 				5867DE941E4C8D1D00F62EBF /* FullScreenImageViewController.swift */,
@@ -329,7 +329,6 @@
 			files = (
 				5838FAF31E4B8C77006C9627 /* UIImageView+Extension.swift in Sources */,
 				304ABF521E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld in Sources */,
-				304ABF4C1E4A937C005EFF41 /* ViewController.swift in Sources */,
 				58958F951E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift in Sources */,
 				5838FAEE1E4B5782006C9627 /* PostsCollectionViewController.swift in Sources */,
 				30BB1A231E4AB105004EA23C /* Notification+Extension.swift in Sources */,
@@ -339,6 +338,7 @@
 				304ABF4A1E4A937C005EFF41 /* AppDelegate.swift in Sources */,
 				5838FAF01E4B85AB006C9627 /* PostCollectionViewCell.swift in Sources */,
 				580407521E4CAD8B001FFDC6 /* WebViewController.swift in Sources */,
+				588B67881E4CE19000FA6F3E /* LoginViewController.swift in Sources */,
 				5867DE951E4C8D1D00F62EBF /* FullScreenImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

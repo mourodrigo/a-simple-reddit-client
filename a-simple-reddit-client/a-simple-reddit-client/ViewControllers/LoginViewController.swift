@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,18 +81,14 @@ class ViewController: UIViewController {
             presentErrorAlert()
             return
         }
+
+        print(Authorization.sharedInstance.token)
         
         DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "ShowPostsNavigation", sender: self)
+            self.dismiss(animated: true)            
         }
         
     }
-    
-    @IBAction func refresh(_ sender: Any) {
-        Authorization.sharedInstance.refreshToken()
-    }
 
-    
-    
 }
 
