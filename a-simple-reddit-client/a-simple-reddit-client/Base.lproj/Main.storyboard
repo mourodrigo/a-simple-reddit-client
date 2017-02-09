@@ -296,11 +296,62 @@
                     <navigationItem key="navigationItem" id="LnD-4s-PCR"/>
                     <connections>
                         <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
+                        <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="eYJ-me-2WI"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5tK-jb-f1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1805.5999999999999" y="35.532233883058474"/>
+        </scene>
+        <!--Full Screen Image View Controller-->
+        <scene sceneID="qVH-AU-Njk">
+            <objects>
+                <viewController restorationIdentifier="FullScreenImageViewController" storyboardIdentifier="FullScreenImageViewController" id="Ftf-fD-Bye" customClass="FullScreenImageViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fN8-mq-3K7"/>
+                        <viewControllerLayoutGuide type="bottom" id="IrC-hl-Hsk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GHH-Dd-J5g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJj-IX-Ghq">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5zC-3H-bev">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="5zC-3H-bev" firstAttribute="leading" secondItem="TJj-IX-Ghq" secondAttribute="leading" id="7de-WW-EEc"/>
+                                    <constraint firstItem="5zC-3H-bev" firstAttribute="centerX" secondItem="TJj-IX-Ghq" secondAttribute="centerX" id="dTT-hL-5qb"/>
+                                    <constraint firstAttribute="trailing" secondItem="5zC-3H-bev" secondAttribute="trailing" id="gCW-vS-BAC"/>
+                                    <constraint firstAttribute="bottom" secondItem="5zC-3H-bev" secondAttribute="bottom" id="jSW-R0-ere"/>
+                                    <constraint firstItem="5zC-3H-bev" firstAttribute="centerY" secondItem="TJj-IX-Ghq" secondAttribute="centerY" id="sJp-V6-CPp"/>
+                                    <constraint firstItem="5zC-3H-bev" firstAttribute="top" secondItem="TJj-IX-Ghq" secondAttribute="top" id="tEl-bl-1zI"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="Ftf-fD-Bye" id="8tW-bI-aLl"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <constraints>
+                            <constraint firstItem="TJj-IX-Ghq" firstAttribute="top" secondItem="GHH-Dd-J5g" secondAttribute="top" id="84X-qY-o17"/>
+                            <constraint firstAttribute="trailing" secondItem="TJj-IX-Ghq" secondAttribute="trailing" id="LQf-xn-zDs"/>
+                            <constraint firstItem="TJj-IX-Ghq" firstAttribute="leading" secondItem="GHH-Dd-J5g" secondAttribute="leading" id="g1v-q5-Chu"/>
+                            <constraint firstItem="IrC-hl-Hsk" firstAttribute="top" secondItem="TJj-IX-Ghq" secondAttribute="bottom" id="m1X-5q-uI4"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="5zC-3H-bev" id="i2U-Bc-qmn"/>
+                        <outlet property="scrollView" destination="TJj-IX-Ghq" id="42j-ms-fEl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WuP-14-Duf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3573.5999999999999" y="35.532233883058474"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fsy-su-o4Y">

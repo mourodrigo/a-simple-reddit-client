@@ -92,6 +92,13 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
    // MARK: UICollectionViewDataSource
+    
+    func dataFor(indexPath: IndexPath) -> NSDictionary{
+        
+        let content = self.posts[indexPath.row] as! NSDictionary
+        return content.value(forKey: "data") as! NSDictionary
+
+    }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -115,10 +122,8 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             return cell
             
         }else{
-        
-            let content = self.posts[indexPath.row] as! NSDictionary
             
-            let data = content.value(forKey: "data") as! NSDictionary
+            let data = dataFor(indexPath: indexPath)
            
             let thumbnail = data.value(forKey: "thumbnail") as! String
             
@@ -162,16 +167,29 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let data = dataFor(indexPath: indexPath)
+
         if(indexPath.row == posts.count && !refresher.isRefreshing){ // the load more label
-            let content = self.posts[indexPath.row-1] as! NSDictionary
-            
-            let data = content.value(forKey: "data") as! NSDictionary
-            
+
             let after = data.value(forKey: "name") as! String
             
             self.fetchPosts(after: "count=\(self.posts.count)&after=\(after)")
+
+        }else{
+            
+            let previewData = data.value(forKey: "preview") as! NSDictionary
+
+            if(previewData.value(forKey: "enabled") as! Bool){
+              
+                let images = previewData.value(forKey: "images") as! NSArray
+                let imageSource = images.value(forKey: "source") as! NSArray
+                let content = imageSource.firstObject as! NSDictionary
+                let urlString = content.value(forKey: "url") as! String
+                
+                self.performSegue(withIdentifier: "ShowFullScreenImageViewController", sender: urlString)
+                
+            }
         }
-        
     }
     
     // MARK: UICollectionViewLayout
@@ -213,13 +231,27 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         return CGFloat(spacing)
     }
 
-    
-    
-    //MARK: - ORIENTATION
+    //MARK: - Orientation
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.collectionView?.collectionViewLayout.invalidateLayout()
         self.updateCellSize(tofit: size)
+    }
+    
+    //MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
+        if(segue.identifier == "ShowFullScreenImageViewController"){
+            
+            let urlString = sender as! String
+
+            let fullScreenImageViewController = segue.destination as! FullScreenImageViewController
+            fullScreenImageViewController.urlString = urlString
+            
+            
+        }
+    
     }
    
 }
