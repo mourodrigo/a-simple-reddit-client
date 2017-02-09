@@ -40,19 +40,24 @@ extension UIImageView {
 
     func saveToPhotos(){
         
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAsset(from: self.image!)
-        }, completionHandler: { success, error in
-            if success {
-                NotificationCenter.default.post(name:.imageDidSaveToPhotosWithSuccess, object: nil, userInfo: nil)
+        PHPhotoLibrary.requestAuthorization { (status) in
+            if (status == PHAuthorizationStatus.authorized){
+
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAsset(from: self.image!)
+                }, completionHandler: { success, error in
+                    if success {
+                        NotificationCenter.default.post(name:.imageDidSaveToPhotosWithSuccess, object: nil, userInfo: nil)
+                    }
+                    else if error != nil {
+                        NotificationCenter.default.post(name:.imageDidSaveToPhotosWithFail, object: error?.localizedDescription, userInfo: nil)
+                    }
+                })
+                
+            }else{
+                NotificationCenter.default.post(name:.imageDidSaveToPhotosWithFail, object: "Please authorize Photo Library for saving this image", userInfo: nil)
             }
-            else if error != nil {
-                NotificationCenter.default.post(name:.imageDidSaveToPhotosWithFail, object: error?.localizedDescription, userInfo: nil)
-            }
-            else {
-                NotificationCenter.default.post(name:.imageDidSaveToPhotosWithFail, object: nil, userInfo: nil)
-            }
-        })
+        }
         
     }
     
