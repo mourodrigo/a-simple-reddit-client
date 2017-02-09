@@ -2,6 +2,7 @@ A simple reddit client
 ===================
 
 Hello there!
+
 Welcome to my simple reddit client example for **Swift 3**.  This project was based on iOS 10.2 has some must-know skills applied on features that compose many of the current and latest mobile application.
 
 ----------
@@ -27,5 +28,7 @@ Development method
 ----------
 
 This repository is under MIT licence, find it helpful? Share it!
+
 Hope you like it!
+
 Bye!
