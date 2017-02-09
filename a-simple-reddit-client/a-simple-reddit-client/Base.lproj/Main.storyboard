@@ -307,6 +307,7 @@
                     <connections>
                         <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
                         <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="eYJ-me-2WI"/>
+                        <segue destination="EUb-D1-vzN" kind="show" identifier="ShowWebViewController" id="spY-Bz-pLW"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5tK-jb-f1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -368,7 +369,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WuP-14-Duf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3573.5999999999999" y="35.532233883058474"/>
+            <point key="canvasLocation" x="2950" y="-283"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fsy-su-o4Y">
@@ -385,6 +386,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rva-0u-xdI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-966" y="36"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="07r-o1-MOz">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="EUb-D1-vzN" customClass="WebViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fYO-Rf-UcP"/>
+                        <viewControllerLayoutGuide type="bottom" id="KAd-NM-aqT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bb5-ob-BKJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView multipleTouchEnabled="YES" contentMode="scaleToFill" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XU1-hq-sAI">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="EUb-D1-vzN" id="V5L-MM-oil"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KAd-NM-aqT" firstAttribute="top" secondItem="XU1-hq-sAI" secondAttribute="bottom" id="HYS-jp-3rc"/>
+                            <constraint firstItem="XU1-hq-sAI" firstAttribute="top" secondItem="bb5-ob-BKJ" secondAttribute="top" id="K39-ie-vVf"/>
+                            <constraint firstItem="XU1-hq-sAI" firstAttribute="leading" secondItem="bb5-ob-BKJ" secondAttribute="leading" id="QfM-zk-uwp"/>
+                            <constraint firstAttribute="trailing" secondItem="XU1-hq-sAI" secondAttribute="trailing" id="ijX-ZC-z2D"/>
+                            <constraint firstItem="XU1-hq-sAI" firstAttribute="centerY" secondItem="bb5-ob-BKJ" secondAttribute="centerY" id="sjY-lU-UBj"/>
+                            <constraint firstItem="XU1-hq-sAI" firstAttribute="centerX" secondItem="bb5-ob-BKJ" secondAttribute="centerX" id="xPE-Ao-AcY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webview" destination="XU1-hq-sAI" id="TSN-Kq-hjB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8by-MM-l7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3673" y="421"/>
         </scene>
     </scenes>
 </document>

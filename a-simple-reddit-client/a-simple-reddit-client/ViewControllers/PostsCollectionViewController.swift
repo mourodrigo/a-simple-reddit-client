@@ -21,7 +21,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
  
     //Datasource
     var posts: NSMutableArray = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,12 +33,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         
     }
 
-    func updateDataSource(){
-        self.refresher.beginRefreshing()
-        fetchPosts()
-    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -50,6 +44,15 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidAppear(_ animated: Bool) {
         self.updateCellSize()
+    }
+    
+    // MARK: UICollectionViewDataSource
+    
+    func updateDataSource(){
+        
+        self.refresher.beginRefreshing()
+        fetchPosts()
+        
     }
     
     func fetchPosts(after:String = ""){
@@ -92,8 +95,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         task.resume()
         
     }
-    
-   // MARK: UICollectionViewDataSource
     
     func dataFor(indexPath: IndexPath, offset:Int = 0) -> NSDictionary{
         
@@ -179,8 +180,13 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             
             self.fetchPosts(after: "count=\(self.posts.count)&after=\(after)")
 
-        }else{
+        }else{ // any other cell will open a webview with URL  
 
+            let data = dataFor(indexPath: indexPath)
+            
+            let urlString = data.value(forKey: "url") as! String
+            
+            self.performSegue(withIdentifier: "ShowWebViewController", sender: urlString)
             
         }
     }
@@ -208,7 +214,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         }
         
         let cellWidth = CGFloat.init((Int(contentSize.width)-(numberOfColumns*spacing)) / numberOfColumns)
-        return CGSize.init(width: cellWidth, height: cellWidth/2)  //calculate cell size
+        return CGSize.init(width: cellWidth, height: cellWidth/3)  //calculate cell size
         
     }
     
@@ -267,6 +273,16 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
             let fullScreenImageViewController = segue.destination as! FullScreenImageViewController
             fullScreenImageViewController.urlString = urlString
+            
+            
+        }
+        
+        if(segue.identifier == "ShowWebViewController"){
+            
+            let urlString = sender as! String
+            
+            let webViewController = segue.destination as! WebViewController
+            webViewController.urlString = urlString
             
             
         }

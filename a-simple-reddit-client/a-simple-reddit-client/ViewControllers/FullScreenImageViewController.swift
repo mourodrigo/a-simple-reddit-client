@@ -45,8 +45,7 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         
         self.imageView.saveToPhotos()
     }
-    
-    
+        
     func imageDidSaveToPhotosWithSuccess(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .imageDidSaveToPhotosWithSuccess, object: nil)
         NotificationCenter.default.removeObserver(self, name: .imageDidSaveToPhotosWithFail, object: nil)
