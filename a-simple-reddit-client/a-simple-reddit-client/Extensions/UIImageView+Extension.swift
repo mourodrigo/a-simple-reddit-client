@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Photos
 
 extension UIImageView {
     
@@ -27,6 +28,7 @@ extension UIImageView {
     }
     
     func downloadedFrom(link: String, contentMode mode: UIViewContentMode = .scaleAspectFit) {
+        print("Loading url from string \(link)")
         guard let url = URL(string: link) else { return }
         downloadedFrom(url: url, contentMode: mode)
     }
@@ -36,4 +38,23 @@ extension UIImageView {
         self.image = image
     
     }
+
+    func saveToPhotos(){
+        
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: self.image!)
+        }, completionHandler: { success, error in
+            if success {
+                NotificationCenter.default.post(name:.imageDidSaveToPhotosWithSuccess, object: nil, userInfo: nil)
+            }
+            else if error != nil {
+                NotificationCenter.default.post(name:.imageDidSaveToPhotosWithFail, object: error?.localizedDescription, userInfo: nil)
+            }
+            else {
+                NotificationCenter.default.post(name:.imageDidSaveToPhotosWithFail, object: nil, userInfo: nil)
+            }
+        })
+        
+    }
+    
 }

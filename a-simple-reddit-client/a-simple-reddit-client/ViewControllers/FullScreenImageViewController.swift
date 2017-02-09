@@ -36,4 +36,57 @@ class FullScreenImageViewController: UIViewController, UIScrollViewDelegate {
         imageView.downloadedFrom(link: urlString)
     }
 
+    @IBAction func didTapSaveButton(_ sender: Any) {
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(imageDidSaveToPhotosWithSuccess(notification:)), name: .imageDidSaveToPhotosWithSuccess, object: nil)
+ 
+        NotificationCenter.default.addObserver(self, selector: #selector(imageDidSaveToPhotosWithFail(notification:)), name: .imageDidSaveToPhotosWithFail, object: nil)
+
+        
+        self.imageView.saveToPhotos()
+    }
+    
+    
+    func imageDidSaveToPhotosWithSuccess(notification:Notification) -> Void {
+        NotificationCenter.default.removeObserver(self, name: .imageDidSaveToPhotosWithSuccess, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .imageDidSaveToPhotosWithFail, object: nil)
+        
+        let alert = UIAlertController(title: nil, message: NSLocalizedString("Image saved", comment: "Image was saved to camera roll"), preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: NSLocalizedString("Thanks!", comment: "Option from alert controller"), style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel button pressed")
+        })
+        
+        alert.addAction(okAction)
+        
+        self.present(alert, animated: true) {
+            print("errorAlert presented")
+        }
+    }
+    
+    func imageDidSaveToPhotosWithFail(notification:Notification) -> Void {
+        NotificationCenter.default.removeObserver(self, name: .imageDidSaveToPhotosWithSuccess, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .imageDidSaveToPhotosWithFail, object: nil)
+        
+        var bodyAlert = ""
+        
+        if(notification.object != nil){
+            bodyAlert = bodyAlert.appending(notification.object as! String)
+        }
+        
+        let alert = UIAlertController(title: nil, message: NSLocalizedString("Error not saved", comment: bodyAlert), preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: NSLocalizedString("Ok!", comment: "Option from alert controller"), style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            print("Cancel button pressed")
+        })
+        
+        alert.addAction(okAction)
+        
+        self.present(alert, animated: true) {
+            print("errorAlert presented")
+        }
+    }
+
 }

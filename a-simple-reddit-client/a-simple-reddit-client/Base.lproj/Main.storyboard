@@ -343,7 +343,14 @@
                             <constraint firstItem="IrC-hl-Hsk" firstAttribute="top" secondItem="TJj-IX-Ghq" secondAttribute="bottom" id="m1X-5q-uI4"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" id="dkg-VC-ONN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="41D-et-PwT">
+                            <connections>
+                                <action selector="didTapSaveButton:" destination="Ftf-fD-Bye" id="UE8-Gx-4OT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="imageView" destination="5zC-3H-bev" id="i2U-Bc-qmn"/>
                         <outlet property="scrollView" destination="TJj-IX-Ghq" id="42j-ms-fEl"/>

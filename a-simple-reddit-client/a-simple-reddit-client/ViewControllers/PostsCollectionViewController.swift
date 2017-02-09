@@ -93,9 +93,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
    // MARK: UICollectionViewDataSource
     
-    func dataFor(indexPath: IndexPath) -> NSDictionary{
+    func dataFor(indexPath: IndexPath, offset:Int = 0) -> NSDictionary{
         
-        let content = self.posts[indexPath.row] as! NSDictionary
+        let content = self.posts[indexPath.row+offset] as! NSDictionary
         return content.value(forKey: "data") as! NSDictionary
 
     }
@@ -167,16 +167,19 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let data = dataFor(indexPath: indexPath)
-
+        
         if(indexPath.row == posts.count && !refresher.isRefreshing){ // the load more label
 
+            let data = dataFor(indexPath: indexPath, offset: -1)
+            
             let after = data.value(forKey: "name") as! String
             
             self.fetchPosts(after: "count=\(self.posts.count)&after=\(after)")
 
         }else{
-            
+
+            let data = dataFor(indexPath: indexPath)
+
             let previewData = data.value(forKey: "preview") as! NSDictionary
 
             if(previewData.value(forKey: "enabled") as! Bool){
