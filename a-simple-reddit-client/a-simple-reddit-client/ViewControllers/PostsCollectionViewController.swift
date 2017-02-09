@@ -150,8 +150,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             }else{
                 cell.imageView.image = image
             }
-
+            
             return cell
+
         }
     
     }
