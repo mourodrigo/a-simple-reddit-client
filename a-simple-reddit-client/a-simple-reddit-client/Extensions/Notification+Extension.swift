@@ -18,4 +18,6 @@ extension Notification.Name {
     static let imageDidSaveToPhotosWithSuccess = Notification.Name("imageDidSaveToPhotosWithSuccess")
     static let imageDidSaveToPhotosWithFail = Notification.Name("imageDidSaveToPhotosWithFail")
 
+    static let didTapImageButton = Notification.Name("didTapImageButton")
+
 }

@@ -16,6 +16,9 @@ class PostCollectionViewCell: UICollectionViewCell {
     @IBOutlet var dateAgoLabel: UILabel!
     @IBOutlet var commentsLabel: UILabel!
 
+    @IBAction func didTapImageButton(_ sender: Any) {
+        NotificationCenter.default.post(name:.didTapImageButton, object: self.imageView.tag, userInfo: nil)
+    }
         
 }
 

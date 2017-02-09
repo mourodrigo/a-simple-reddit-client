@@ -29,6 +29,8 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         refresher.addTarget(self, action: #selector(updateDataSource), for: .valueChanged)
         collectionView!.addSubview(refresher)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapImageButton(notification:)), name: .didTapImageButton, object: nil)
+        
     }
 
     func updateDataSource(){
@@ -151,6 +153,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
 
             if(image==nil){
+                cell.imageView.tag = indexPath.row
                 cell.imageView.downloadedFrom(link: thumbnail)
             }else{
                 cell.imageView.image = image
@@ -178,20 +181,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
         }else{
 
-            let data = dataFor(indexPath: indexPath)
-
-            let previewData = data.value(forKey: "preview") as! NSDictionary
-
-            if(previewData.value(forKey: "enabled") as! Bool){
-              
-                let images = previewData.value(forKey: "images") as! NSArray
-                let imageSource = images.value(forKey: "source") as! NSArray
-                let content = imageSource.firstObject as! NSDictionary
-                let urlString = content.value(forKey: "url") as! String
-                
-                self.performSegue(withIdentifier: "ShowFullScreenImageViewController", sender: urlString)
-                
-            }
+            
         }
     }
     
@@ -240,6 +230,32 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         self.collectionView?.collectionViewLayout.invalidateLayout()
         self.updateCellSize(tofit: size)
     }
+    
+    //MARK - ImagePreview
+    
+    func didTapImageButton(notification:Notification) -> Void {
+
+        if(notification.object != nil){
+            
+            let index = IndexPath.init(row: (notification.object as! Int) , section: 0)
+            
+            let data = dataFor(indexPath: index)
+            
+            let previewData = data.value(forKey: "preview") as! NSDictionary
+            
+            if(previewData.value(forKey: "enabled") as! Bool){
+                
+                let images = previewData.value(forKey: "images") as! NSArray
+                let imageSource = images.value(forKey: "source") as! NSArray
+                let content = imageSource.firstObject as! NSDictionary
+                let urlString = content.value(forKey: "url") as! String
+                
+                self.performSegue(withIdentifier: "ShowFullScreenImageViewController", sender: urlString)
+                
+            }
+        }
+    }
+
     
     //MARK: - Navigation
     
