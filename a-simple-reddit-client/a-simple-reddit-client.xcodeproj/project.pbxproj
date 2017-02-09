@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		304ABF4A1E4A937C005EFF41 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF491E4A937C005EFF41 /* AppDelegate.swift */; };
 		304ABF4F1E4A937C005EFF41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 304ABF4D1E4A937C005EFF41 /* Main.storyboard */; };
-		304ABF521E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF501E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld */; };
 		304ABF541E4A937C005EFF41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 304ABF531E4A937C005EFF41 /* Assets.xcassets */; };
 		304ABF571E4A937C005EFF41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 304ABF551E4A937C005EFF41 /* LaunchScreen.storyboard */; };
 		304ABF621E4A937D005EFF41 /* a_simple_reddit_clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF611E4A937D005EFF41 /* a_simple_reddit_clientTests.swift */; };
@@ -48,7 +47,6 @@
 		304ABF461E4A937C005EFF41 /* a-simple-reddit-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "a-simple-reddit-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		304ABF491E4A937C005EFF41 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		304ABF4E1E4A937C005EFF41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		304ABF511E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = a_simple_reddit_client.xcdatamodel; sourceTree = "<group>"; };
 		304ABF531E4A937C005EFF41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		304ABF561E4A937C005EFF41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		304ABF581E4A937C005EFF41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				30BB1A211E4AB0C9004EA23C /* Extensions */,
 				304ABF531E4A937C005EFF41 /* Assets.xcassets */,
 				304ABF581E4A937C005EFF41 /* Info.plist */,
-				304ABF501E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld */,
 			);
 			path = "a-simple-reddit-client";
 			sourceTree = "<group>";
@@ -328,7 +325,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5838FAF31E4B8C77006C9627 /* UIImageView+Extension.swift in Sources */,
-				304ABF521E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld in Sources */,
 				58958F951E4BB03800FB4E35 /* LoadMoreCollectionViewCell.swift in Sources */,
 				5838FAEE1E4B5782006C9627 /* PostsCollectionViewController.swift in Sources */,
 				30BB1A231E4AB105004EA23C /* Notification+Extension.swift in Sources */,
@@ -613,19 +609,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		304ABF501E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				304ABF511E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodel */,
-			);
-			currentVersion = 304ABF511E4A937C005EFF41 /* a_simple_reddit_client.xcdatamodel */;
-			path = a_simple_reddit_client.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 304ABF3E1E4A937C005EFF41 /* Project object */;
 }
