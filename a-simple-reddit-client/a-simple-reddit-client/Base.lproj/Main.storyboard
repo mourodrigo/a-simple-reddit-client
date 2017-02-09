@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pa9-iW-TCT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GoB-YJ-Ay4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -43,20 +43,20 @@
             <point key="canvasLocation" x="2950" y="-1051"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="lvN-RY-Hn1">
+        <scene sceneID="jbX-wn-Y4Z">
             <objects>
-                <navigationController id="pa9-iW-TCT" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yP9-CH-ZtS">
+                <navigationController id="GoB-YJ-Ay4" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IXV-S9-X8t">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Aea-Hk-7eL" kind="relationship" relationship="rootViewController" id="NAD-Fo-sEp"/>
+                        <segue destination="Aea-Hk-7eL" kind="relationship" relationship="rootViewController" id="OHx-XS-5xE"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6gW-g4-J24" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fNP-Le-CjJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1127" y="36"/>
+            <point key="canvasLocation" x="892" y="36"/>
         </scene>
         <!--PostsCollectionViewController-->
         <scene sceneID="20C-nG-kbI">
@@ -292,7 +292,7 @@
                             <outlet property="delegate" destination="Aea-Hk-7eL" id="Lkv-rx-lAQ"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="LnD-4s-PCR"/>
+                    <navigationItem key="navigationItem" title="Simple Reddit" id="LnD-4s-PCR"/>
                     <connections>
                         <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
                         <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="eYJ-me-2WI"/>
@@ -316,6 +316,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2Ug-tS-VlA">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJj-IX-Ghq">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
@@ -336,12 +340,14 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="TJj-IX-Ghq" firstAttribute="top" secondItem="GHH-Dd-J5g" secondAttribute="top" id="84X-qY-o17"/>
                             <constraint firstAttribute="trailing" secondItem="TJj-IX-Ghq" secondAttribute="trailing" id="LQf-xn-zDs"/>
+                            <constraint firstItem="2Ug-tS-VlA" firstAttribute="centerX" secondItem="GHH-Dd-J5g" secondAttribute="centerX" id="fQ9-3m-M1k"/>
                             <constraint firstItem="TJj-IX-Ghq" firstAttribute="leading" secondItem="GHH-Dd-J5g" secondAttribute="leading" id="g1v-q5-Chu"/>
                             <constraint firstItem="IrC-hl-Hsk" firstAttribute="top" secondItem="TJj-IX-Ghq" secondAttribute="bottom" id="m1X-5q-uI4"/>
+                            <constraint firstItem="2Ug-tS-VlA" firstAttribute="centerY" secondItem="GHH-Dd-J5g" secondAttribute="centerY" id="pLX-g2-CuF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="dkg-VC-ONN">
