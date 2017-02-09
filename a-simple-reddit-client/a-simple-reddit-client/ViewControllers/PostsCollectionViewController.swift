@@ -26,7 +26,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         super.viewDidLoad()
 
         //notifications for token authorization
-//        NotificationCenter.default.addObserver(self, selector: #selector(tokenDidAuthorize(notification:)), name: .tokenDidAuthorize, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentUserLoginControll(notification:)), name: .oAuthDidFail, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentUserLoginControll(notification:)), name: .oAuthNeedsUserLogin, object: nil)
         

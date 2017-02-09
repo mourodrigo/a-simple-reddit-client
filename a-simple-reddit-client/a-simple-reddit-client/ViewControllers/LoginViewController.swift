@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginViewController.swift
 //  a-simple-reddit-client
 //
 //  Created by Rodrigo Bueno Tomiosso on 07/02/17.
@@ -12,7 +12,6 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,13 +29,11 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(oAuthNeedsUserLogin(notification:)), name: .oAuthNeedsUserLogin, object: nil)
 
         Authorization.sharedInstance.authorize()
-
     }
     
     func oAuthNeedsUserLogin(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .oAuthNeedsUserLogin, object: nil)
         self.openOnBrowser(url: Authorization.sharedInstance.authURL())
-    
     }
     
     func openOnBrowser(url: String) {
