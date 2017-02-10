@@ -99,6 +99,7 @@ class Authorization {
                     UserDefaults.standard.setValue(self.token.value(forKey: "expires_in"), forKey: "expires_in")
                     UserDefaults.standard.setValue(self.token.value(forKey: "scope"), forKey: "scope")
                     UserDefaults.standard.setValue(self.token.value(forKey: "token_type"), forKey: "token_type")
+                    UserDefaults.standard.setValue(self.token.value(forKey: "refresh_token"), forKey: "refresh_token")
                   
                     
                 }else{ // and this is for token refresh, so just update the access_token
