@@ -37,5 +37,4 @@ How does it look like?
 This repository is under MIT licence, find it helpful? Share it!
 
 Hope you like it!
-
 Bye!
