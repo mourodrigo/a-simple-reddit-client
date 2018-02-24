@@ -32,6 +32,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         //notifications for user actions
         NotificationCenter.default.addObserver(self, selector: #selector(didTapImageButton(notification:)), name: .didTapImageButton, object: nil)
  
+        //notifications for user actions
+        NotificationCenter.default.addObserver(self, selector: #selector(didFetchPosts(notification:)), name: .didFetchPosts, object: nil)
+        
         //refresh controller for pull-to-refresh on collectionview
         self.collectionView!.alwaysBounceVertical = true
         refresher.addTarget(self, action: #selector(updateDataSource), for: .valueChanged)
@@ -60,56 +63,27 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     // MARK: UICollectionViewDataSource
     
+    //MARK - ImagePreview
+    
+    func didFetchPosts(notification:Notification) -> Void {
+        
+        if let postsArray = notification.object as? [NSDictionary] {
+            self.posts.addObjects(from: postsArray)
+            DispatchQueue.main.async {
+                self.refresher.endRefreshing()
+                self.backgroundView.isHidden = true
+                self.collectionView?.reloadData()
+            }
+        }
+    }
+    
     func updateDataSource(){
         
         if (Authorization.sharedInstance.token.allKeys.count>0){
             self.refresher.beginRefreshing()
-            fetchPosts()
+            Post.fetch()
         }
 
-    }
-    
-    func fetchPosts(after:String = ""){
-        
-        let url = URL(string: "http://oauth.reddit.com/top/.json?".appending(after))!
-        let session = URLSession.shared
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        request.setValue("Bearer \(Authorization.sharedInstance.token.value(forKey: "access_token") as! String)", forHTTPHeaderField: "Authorization")
-        
-        request.cachePolicy = NSURLRequest.CachePolicy.reloadIgnoringCacheData
-
-        request.timeoutInterval = 30
-        
-        let task = session.dataTask(with: request) { ( data, response, error) in
-            
-            if(error != nil){
-                print("AN ERROR OCURRED")
-            }
-            
-            do {
-                
-                let JSONReturn = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! [AnyHashable : AnyObject]
-                
-                let postsArray = JSONReturn["data"]?["children"] as! Array<[String : AnyObject]>
-                self.posts.addObjects(from: postsArray)
-               
-                DispatchQueue.main.async {
-                    self.refresher.endRefreshing()
-                    self.backgroundView.isHidden = true
-                    self.collectionView?.reloadData()
-                }
-                
-            }
-            catch {
-                NotificationCenter.default.post(name:.oAuthDidFail, object: nil, userInfo: nil)
-            }
-        }
-        
-        task.resume()
-        
     }
     
     func dataFor(indexPath: IndexPath, offset:Int = 0) -> NSDictionary{
@@ -194,7 +168,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             
             let after = data.value(forKey: "name") as! String
             
-            self.fetchPosts(after: "count=\(self.posts.count)&after=\(after)")
+            Post.fetch(after: "count=\(self.posts.count)&after=\(after)")
 
         }else{ // any other cell will open a webview with URL  
 

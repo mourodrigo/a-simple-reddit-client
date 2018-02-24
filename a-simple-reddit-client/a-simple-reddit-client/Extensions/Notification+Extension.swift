@@ -14,10 +14,9 @@ extension Notification.Name {
     static let oAuthDidFail = Notification.Name("oAuthDidFail")
     static let tokenDidAuthorize = Notification.Name("tokenDidAuthorize")
     static let oAuthNeedsUserLogin = Notification.Name("oAuthNeedsUserLogin")
-    
     static let imageDidSaveToPhotosWithSuccess = Notification.Name("imageDidSaveToPhotosWithSuccess")
     static let imageDidSaveToPhotosWithFail = Notification.Name("imageDidSaveToPhotosWithFail")
-
     static let didTapImageButton = Notification.Name("didTapImageButton")
+    static let didFetchPosts = Notification.Name("didFetchPosts")
 
 }
