@@ -9,21 +9,23 @@
 import Foundation
 
 class Post {
+    let name: String
     let title: String
     let author: String
     let date: Date?
-    let externalURL: URL?
-    let thumbnailURL: URL?
+    let externalLink: String?
+    let thumbnailLink: String?
     let commentsCount: Int
     let isReaded: Bool
     
-    init(_title: String, _author: String, _date: Date?, _externalURL: URL?, _thumbnailURL: URL?, _commentsCount: Int  , _isReaded: Bool) {
+    init(_name:String, _title: String, _author: String, _date: Date?, _externalLink: String?, _thumbnailLink: String?, _commentsCount: Int  , _isReaded: Bool) {
 
+        self.name = _name
         self.title = _title
         self.author = _author
         self.date = _date
-        self.externalURL = _externalURL
-        self.thumbnailURL = _thumbnailURL
+        self.externalLink = _externalLink
+        self.thumbnailLink = _thumbnailLink
         self.commentsCount = _commentsCount
         self.isReaded = _isReaded
 
@@ -59,15 +61,17 @@ class Post {
                     
                     for child in childrens {
                         if let item = child["data"] {
-                            let newPost = Post(_title: item["title"] as? String ?? "",
+                            let newPost = Post(_name: "",
+
+                                               _title: item["title"] as? String ?? "",
                                                
                                                _author: item["author"] as? String ?? "",
                                                
                                                _date: item["created_utc"] != nil ? Date.init(timeIntervalSince1970: (item["created_utc"] as! TimeInterval)) : nil,
                                                
-                                               _externalURL: item["url"] != nil ? URL.init(string: item["url"] as! String) : nil,
+                                               _externalLink: item["url"] as? String,
                                                
-                                               _thumbnailURL: item["thumbnail"] != nil ? URL.init(string: item["thumbnail"] as! String) : nil,
+                                               _thumbnailLink: item["thumbnail"] as? String,
                                                
                                                _commentsCount: item["num_comments"] as! Int,
                                                

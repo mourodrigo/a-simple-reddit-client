@@ -20,7 +20,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     let refresher = UIRefreshControl()
  
     //Datasource
-    var posts: NSMutableArray = []
+    var posts = [Post]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +67,8 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     func didFetchPosts(notification:Notification) -> Void {
         
-        if let postsArray = notification.object as? [NSDictionary] {
-            self.posts.addObjects(from: postsArray)
+        if let postsFetched = notification.object as? [Post] {
+            self.posts.append(contentsOf: postsFetched)
             DispatchQueue.main.async {
                 self.refresher.endRefreshing()
                 self.backgroundView.isHidden = true
@@ -83,13 +83,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             self.refresher.beginRefreshing()
             Post.fetch()
         }
-
-    }
-    
-    func dataFor(indexPath: IndexPath, offset:Int = 0) -> NSDictionary{
-        
-        let content = self.posts[indexPath.row+offset] as! NSDictionary
-        return content.value(forKey: "data") as! NSDictionary
 
     }
 
@@ -110,50 +103,43 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        if(indexPath.row == self.posts.count){
+        if indexPath.row == self.posts.count {
+        
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LoadMoreCollectionViewCell", for: indexPath) as! LoadMoreCollectionViewCell
             return cell
+
+        } else {
             
-        }else{
-            
-            let data = dataFor(indexPath: indexPath)
+            let post = posts[indexPath.row]
            
-            let thumbnail = data.value(forKey: "thumbnail") as! String
+            var reuseIdentifier = "NoImagePostCollectionViewCell"
             
-            var reuseIdentifier = ""
-            var image:UIImage?
-            
-            if(thumbnail.isURL){
+            if let thumbnailLink = post.thumbnailLink, thumbnailLink.isURL {
                 reuseIdentifier = "PostCollectionViewCell"
-                
-            }else{
-                image = UIImage.init(named: "externalLink")
-                reuseIdentifier = "NoImagePostCollectionViewCell"
             }
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PostCollectionViewCell
             
-            cell.authorLabel.text = data.value(forKey: "author") as? String
+            cell.post = post
 
-            cell.titleLabel.text = data.value(forKey: "title")  as? String
+            cell.authorLabel.text = post.author
 
-            cell.commentsLabel.text = String.init(format: "%d comments", data.value(forKey: "num_comments") as! Int)
+            cell.titleLabel.text = post.title
 
-            let date = data.value(forKey: "created_utc") as! TimeInterval
+            cell.commentsLabel.text = "\(post.commentsCount) comments"
 
-            cell.dateAgoLabel.text = Date.init(timeIntervalSince1970: date).timeAgoString()
+            if let postDate = post.date {
+                cell.dateAgoLabel.text = postDate.timeAgoString()
+            } else {
+                cell.dateAgoLabel.text = ""
+            }
 
-            if(image==nil){
-                cell.imageView.tag = indexPath.row
-                cell.imageView.downloadedFrom(link: thumbnail)
-            }else{
-                cell.imageView.image = image
+            if let thumbnailLink = post.thumbnailLink, thumbnailLink.isURL {
+                cell.imageView.downloadedFrom(link: thumbnailLink)
             }
             
             return cell
-
         }
-    
     }
     
     
@@ -164,19 +150,13 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         
         if(indexPath.row == posts.count && !refresher.isRefreshing){ // the load more label
 
-            let data = dataFor(indexPath: indexPath, offset: -1)
-            
-            let after = data.value(forKey: "name") as! String
-            
-            Post.fetch(after: "count=\(self.posts.count)&after=\(after)")
+            Post.fetch(after: "count=\(self.posts.count)&after=\(posts[indexPath.row-1].name)")
 
         }else{ // any other cell will open a webview with URL  
 
-            let data = dataFor(indexPath: indexPath)
-            
-            let urlString = data.value(forKey: "url") as! String
-            
-            self.performSegue(withIdentifier: "ShowWebViewController", sender: urlString)
+            if let externalLink = posts[indexPath.row].externalLink {
+                self.performSegue(withIdentifier: "ShowWebViewController", sender: externalLink)
+            }
             
         }
     }
@@ -235,20 +215,20 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             
             let index = IndexPath.init(row: (notification.object as! Int) , section: 0)
             
-            let data = dataFor(indexPath: index)
+            let data = posts[index.row]
             
-            let previewData = data.value(forKey: "preview") as! NSDictionary
-            
-            if(previewData.value(forKey: "enabled") as! Bool){
-                
-                let images = previewData.value(forKey: "images") as! NSArray
-                let imageSource = images.value(forKey: "source") as! NSArray
-                let content = imageSource.firstObject as! NSDictionary
-                let urlString = content.value(forKey: "url") as! String
-                
-                self.performSegue(withIdentifier: "ShowFullScreenImageViewController", sender: urlString)
-                
-            }
+//            let previewData = data.value(forKey: "preview") as! NSDictionary
+//            
+//            if(previewData.value(forKey: "enabled") as! Bool){
+//                
+//                let images = previewData.value(forKey: "images") as! NSArray
+//                let imageSource = images.value(forKey: "source") as! NSArray
+//                let content = imageSource.firstObject as! NSDictionary
+//                let urlString = content.value(forKey: "url") as! String
+//                
+//                self.performSegue(withIdentifier: "ShowFullScreenImageViewController", sender: urlString)
+//                
+//            }
         }
     }
 

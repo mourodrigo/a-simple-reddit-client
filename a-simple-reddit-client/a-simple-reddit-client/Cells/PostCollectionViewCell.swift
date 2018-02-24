@@ -10,6 +10,8 @@ import UIKit
 
 class PostCollectionViewCell: UICollectionViewCell {
     
+    var post:Post?
+    
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var authorLabel: UILabel!
