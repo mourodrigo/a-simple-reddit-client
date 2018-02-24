@@ -11,13 +11,13 @@ import Foundation
 class Post {
     let title: String
     let author: String
-    let date: Date
-    let externalURL: URL
+    let date: Date?
+    let externalURL: URL?
     let thumbnailURL: URL?
-    let commentsCount: Bool
+    let commentsCount: Int
     let isReaded: Bool
     
-    init(_title: String, _author: String, _date: Date, _externalURL: URL, _thumbnailURL: URL?, _commentsCount: Bool, _isReaded: Bool) {
+    init(_title: String, _author: String, _date: Date?, _externalURL: URL?, _thumbnailURL: URL?, _commentsCount: Int  , _isReaded: Bool) {
 
         self.title = _title
         self.author = _author
@@ -53,9 +53,31 @@ class Post {
                 
                 let JSONReturn = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! [AnyHashable : AnyObject]
                 
-                if let data = JSONReturn["data"], let items = data["children"] as? Array<[String : AnyObject]> {
-                    NotificationCenter.default.post(name: .didFetchPosts, object: items, userInfo: nil)
-                }
+                if let data = JSONReturn["data"], let childrens = data["children"] as? Array<[String : AnyObject]> {
+                    
+                    var posts = [Post]()
+                    
+                    for child in childrens {
+                        if let item = child["data"] {
+                            let newPost = Post(_title: item["title"] as? String ?? "",
+                                               
+                                               _author: item["author"] as? String ?? "",
+                                               
+                                               _date: item["created_utc"] != nil ? Date.init(timeIntervalSince1970: (item["created_utc"] as! TimeInterval)) : nil,
+                                               
+                                               _externalURL: item["url"] != nil ? URL.init(string: item["url"] as! String) : nil,
+                                               
+                                               _thumbnailURL: item["thumbnail"] != nil ? URL.init(string: item["thumbnail"] as! String) : nil,
+                                               
+                                               _commentsCount: item["num_comments"] as! Int,
+                                               
+                                               _isReaded: false)
+                            
+                            posts.append(newPost)
+                        }
+                    }
+                        NotificationCenter.default.post(name: .didFetchPosts, object: posts, userInfo: nil)
+            }
                 
             }
             catch {
