@@ -160,11 +160,10 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         } else if let delegate = postDetailDelegate {
 
             delegate.postSelected(posts[indexPath.row])
-            
+
             if let detailViewController = delegate as? PostDetailViewController { //shows detail view controller for iphone splitview
                 splitViewController?.showDetailViewController(detailViewController, sender: nil)
             }
-
         }
     }
     
@@ -191,7 +190,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         }
         
         let cellWidth = CGFloat.init((Int(contentSize.width)-(numberOfColumns*spacing)) / numberOfColumns)
-        return CGSize.init(width: cellWidth, height: cellWidth/3)  //calculate cell size
+        return CGSize.init(width: cellWidth, height: cellWidth/2)  //calculate cell size
         
     }
     
