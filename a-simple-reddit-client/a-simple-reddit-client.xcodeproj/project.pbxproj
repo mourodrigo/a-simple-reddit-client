@@ -16,6 +16,7 @@
 		3059264B204211E600EA688B /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3059264A204211E600EA688B /* Post.swift */; };
 		3059264D2042346200EA688B /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3059264C2042346200EA688B /* PostDetailViewController.swift */; };
 		3059264F20423A6100EA688B /* CustomSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3059264E20423A6100EA688B /* CustomSplitViewController.swift */; };
+		30ABEA642042FAE5000B80F7 /* CustomPostsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30ABEA632042FAE5000B80F7 /* CustomPostsNavigationController.swift */; };
 		30BB1A231E4AB105004EA23C /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BB1A221E4AB105004EA23C /* Notification+Extension.swift */; };
 		30BB1A271E4AC4D3004EA23C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BB1A261E4AC4D3004EA23C /* String+Extension.swift */; };
 		580407521E4CAD8B001FFDC6 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580407511E4CAD8B001FFDC6 /* WebViewController.swift */; };
@@ -62,6 +63,7 @@
 		3059264A204211E600EA688B /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Post.swift; path = Models/Post.swift; sourceTree = "<group>"; };
 		3059264C2042346200EA688B /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostDetailViewController.swift; path = ViewControllers/PostDetailViewController.swift; sourceTree = "<group>"; };
 		3059264E20423A6100EA688B /* CustomSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomSplitViewController.swift; path = ViewControllers/CustomSplitViewController.swift; sourceTree = "<group>"; };
+		30ABEA632042FAE5000B80F7 /* CustomPostsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPostsNavigationController.swift; sourceTree = "<group>"; };
 		30BB1A221E4AB105004EA23C /* Notification+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Notification+Extension.swift"; path = "Extensions/Notification+Extension.swift"; sourceTree = "<group>"; };
 		30BB1A261E4AC4D3004EA23C /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Extension.swift"; path = "Extensions/String+Extension.swift"; sourceTree = "<group>"; };
 		580407511E4CAD8B001FFDC6 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebViewController.swift; path = ViewControllers/WebViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				588B67871E4CE19000FA6F3E /* LoginViewController.swift */,
+				30ABEA632042FAE5000B80F7 /* CustomPostsNavigationController.swift */,
 				3059264E20423A6100EA688B /* CustomSplitViewController.swift */,
 				5838FAED1E4B5782006C9627 /* PostsCollectionViewController.swift */,
 				3059264C2042346200EA688B /* PostDetailViewController.swift */,
@@ -352,6 +355,7 @@
 				586E82631E4B359D00538DAD /* Authorization.swift in Sources */,
 				3059264B204211E600EA688B /* Post.swift in Sources */,
 				586E82651E4B48CC00538DAD /* Date+Extension.swift in Sources */,
+				30ABEA642042FAE5000B80F7 /* CustomPostsNavigationController.swift in Sources */,
 				30BB1A271E4AC4D3004EA23C /* String+Extension.swift in Sources */,
 				304ABF4A1E4A937C005EFF41 /* AppDelegate.swift in Sources */,
 				5838FAF01E4B85AB006C9627 /* PostCollectionViewCell.swift in Sources */,
@@ -526,6 +530,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WL7H3NV943;
 				INFOPLIST_FILE = "a-simple-reddit-client/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mourodrigo.a-simple-reddit-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -540,6 +545,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = WL7H3NV943;
 				INFOPLIST_FILE = "a-simple-reddit-client/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "mourodrigo.a-simple-reddit-client";
 				PRODUCT_NAME = "$(TARGET_NAME)";

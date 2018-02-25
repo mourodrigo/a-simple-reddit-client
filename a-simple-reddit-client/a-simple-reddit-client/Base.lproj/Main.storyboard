@@ -59,10 +59,10 @@
             </objects>
             <point key="canvasLocation" x="2950" y="-1051"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Posts Navigation Controller-->
         <scene sceneID="jbX-wn-Y4Z">
             <objects>
-                <navigationController id="GoB-YJ-Ay4" sceneMemberID="viewController">
+                <navigationController id="GoB-YJ-Ay4" customClass="CustomPostsNavigationController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IXV-S9-X8t">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -389,7 +389,7 @@
                             <outlet property="delegate" destination="Aea-Hk-7eL" id="Lkv-rx-lAQ"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Simple Reddit" id="LnD-4s-PCR"/>
+                    <navigationItem key="navigationItem" title="Reddit Posts" id="LnD-4s-PCR"/>
                     <connections>
                         <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
                         <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="eYJ-me-2WI"/>
