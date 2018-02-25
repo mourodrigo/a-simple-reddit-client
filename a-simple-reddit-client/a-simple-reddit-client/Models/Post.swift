@@ -31,7 +31,7 @@ class Post {
 
     }
     
-    class func fetch(after postId:String = ""){
+    class func fetch(after postId:String = "") {
         
         guard let url = URL(string: "http://oauth.reddit.com/top/.json?".appending(postId)) else { return }
         let session = URLSession.shared
@@ -47,44 +47,47 @@ class Post {
         
         let task = session.dataTask(with: request) { ( data, response, error) in
             
-            if(error != nil){
-                print("AN ERROR OCURRED")
+            if error != nil {
+                print("AN ERROR OCURRED", error?.localizedDescription ?? "")
+                DispatchQueue.main.asyncAfter(deadline: .now()+2.0, execute: {
+                    fetch(after: postId)
+                })
             }
             
             do {
-                
-                let JSONReturn = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! [AnyHashable : AnyObject]
-                
-                if let data = JSONReturn["data"], let childrens = data["children"] as? Array<[String : AnyObject]> {
+                if  let dataResponse = data,
+                    let JSONResponse = try JSONSerialization.jsonObject(with: dataResponse, options: JSONSerialization.ReadingOptions.allowFragments) as? [AnyHashable : AnyObject],
+                    let data = JSONResponse["data"],
+                    let childrens = data["children"] as? Array<[String : AnyObject]> {
                     
-                    var posts = [Post]()
-                    
-                    for child in childrens {
-                        if let item = child["data"] {
-                                    let newPost = Post(_name: item["name"] as? String ?? "",
+                        var posts = [Post]()
+                        
+                        for child in childrens {
+                            if let item = child["data"] {
+                                        let newPost = Post(_name: item["name"] as? String ?? "",
 
-                                               _title: item["title"] as? String ?? "",
-                                               
-                                               _author: item["author"] as? String ?? "",
-                                               
-                                               _date: item["created_utc"] != nil ? Date.init(timeIntervalSince1970: (item["created_utc"] as! TimeInterval)) : nil,
-                                               
-                                               _externalLink: item["url"] as? String,
-                                               
-                                               _thumbnailLink: item["thumbnail"] as? String,
-                                               
-                                               _commentsCount: item["num_comments"] as! Int,
-                                               
-                                               _isReaded: false)
-                            
-                            posts.append(newPost)
+                                                   _title: item["title"] as? String ?? "",
+                                                   
+                                                   _author: item["author"] as? String ?? "",
+                                                   
+                                                   _date: item["created_utc"] != nil ? Date.init(timeIntervalSince1970: (item["created_utc"] as! TimeInterval)) : nil,
+                                                   
+                                                   _externalLink: item["url"] as? String,
+                                                   
+                                                   _thumbnailLink: item["thumbnail"] as? String,
+                                                   
+                                                   _commentsCount: item["num_comments"] as! Int,
+                                                   
+                                                   _isReaded: false)
+                                
+                                posts.append(newPost)
+                            }
                         }
-                    }
                         NotificationCenter.default.post(name: .didFetchPosts, object: posts, userInfo: nil)
-            }
-                
-            }
-            catch {
+                } else {
+                    NotificationCenter.default.post(name: .didFetchPosts, object: nil, userInfo: nil)
+                }
+            } catch {
                 NotificationCenter.default.post(name:.oAuthDidFail, object: nil, userInfo: nil)
             }
         }
