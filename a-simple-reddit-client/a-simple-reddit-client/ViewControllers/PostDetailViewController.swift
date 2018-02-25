@@ -26,10 +26,12 @@ class PostDetailViewController: UIViewController {
     
     func refreshUI() {
         loadViewIfNeeded()
-        postTitleLabel.text = post?.title
+        postTitleLabel.text = post?.author
         postDetailTextLabel.text = post?.title
-        if let link = post?.thumbnailLink {
+        if let link = post?.thumbnailLink, link.isURL {
             postImageView.downloadedFrom(link: link)
+        } else {
+            postImageView.image = UIImage.init(named: "externalLink")
         }
     }
 }

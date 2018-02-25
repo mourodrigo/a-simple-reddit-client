@@ -103,24 +103,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bY3-8m-1aN">
-                                <rect key="frame" x="20" y="64" width="374" height="375.33333333333331"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bY3-8m-1aN">
+                                <rect key="frame" x="20" y="80" width="374" height="662"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OtP-d1-F05">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="200"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="200" id="tCe-JC-t3s"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCj-1C-ks2">
-                                        <rect key="frame" x="0.0" y="208" width="374" height="31.333333333333343"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aCj-1C-ks2">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="31.333333333333332"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9Gz-9O-kIK">
-                                        <rect key="frame" x="0.0" y="247.33333333333331" width="374" height="128"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OtP-d1-F05">
+                                        <rect key="frame" x="0.0" y="39.333333333333329" width="374" height="214.66666666666669"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="214.66999999999999" id="VwV-Hz-jDj"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wIX-qd-cSz">
+                                        <rect key="frame" x="0.0" y="262" width="374" height="400"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="Qd5-3a-swm"/>
+                                        </constraints>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -130,14 +133,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bY3-8m-1aN" firstAttribute="top" secondItem="yUa-oR-eNR" secondAttribute="bottom" id="aN4-bu-CgT"/>
+                            <constraint firstItem="bY3-8m-1aN" firstAttribute="top" secondItem="yUa-oR-eNR" secondAttribute="bottom" constant="16" id="aN4-bu-CgT"/>
                             <constraint firstItem="bY3-8m-1aN" firstAttribute="leading" secondItem="AMj-mC-22R" secondAttribute="leadingMargin" id="xns-gY-B57"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bY3-8m-1aN" secondAttribute="trailing" id="zcw-N3-W1r"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Snd-6A-eht"/>
                     <connections>
-                        <outlet property="postDetailTextLabel" destination="9Gz-9O-kIK" id="aRE-V0-wF4"/>
+                        <outlet property="postDetailTextLabel" destination="wIX-qd-cSz" id="gZB-6N-6aY"/>
                         <outlet property="postImageView" destination="OtP-d1-F05" id="sUo-w1-Qh7"/>
                         <outlet property="postTitleLabel" destination="aCj-1C-ks2" id="hWT-n4-uiH"/>
                     </connections>
