@@ -163,15 +163,17 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             posts[indexPath.row].isReaded = true
             collectionView.performBatchUpdates({
                 collectionView.reloadItems(at: [indexPath])
+            }, completion: { (bool) in
+
+                //send post to detail view controller
+                delegate.postSelected(self.posts[indexPath.row])
+                
+                //shows detail view controller for iphone splitview
+                if let detailViewController = delegate as? PostDetailViewController {
+                    self.splitViewController?.showDetailViewController(detailViewController, sender: nil)
+                }
+
             })
-            
-            //send post to detail view controller
-            delegate.postSelected(posts[indexPath.row])
-            
-            //shows detail view controller for iphone splitview
-            if let detailViewController = delegate as? PostDetailViewController {
-                splitViewController?.showDetailViewController(detailViewController, sender: nil)
-            }
         }
     }
     
@@ -249,10 +251,11 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     //MARK: - Post Dismiss
     @objc func didTapDismissPost(notification:Notification) -> Void {
         guard let post = notification.object as? Post else { return }
-        
+        print("post to delete", post.name)
         if let index = posts.index(where: { (postItem) -> Bool in
             postItem.name == post.name
         }) {
+            print("post deleted", posts[index].name)
             self.collectionView?.performBatchUpdates({
                 posts.remove(at: index)
                 self.collectionView?.deleteItems(at: [IndexPath.init(item: index, section: 0)])
