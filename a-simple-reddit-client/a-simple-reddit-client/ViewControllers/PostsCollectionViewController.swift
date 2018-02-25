@@ -16,7 +16,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
     //UICollectionViewLayout
     var numberOfColumns = 1
-    let spacing = 4
+    let spacing = 2
     var cellSize = CGSize.zero
 
     //Loading and Refresh
@@ -62,7 +62,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidAppear(_ animated: Bool) {
         self.updateCellSize()
-        updateDataSource()
+        if posts.count == 0 {
+            updateDataSource()
+        }
     
     }
     
@@ -93,7 +95,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if ( refresher.isRefreshing || posts.count == 0) {
@@ -158,22 +159,23 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             Post.fetch(after: "count=\(self.posts.count)&after=\(posts[indexPath.row-1].name)")
 
         } else if let delegate = postDetailDelegate {
+            
+                //updates post readed status and post cell
+                collectionView.performBatchUpdates({
+                    posts[indexPath.row].isReaded = true
+                    collectionView.reloadItems(at: [indexPath])
+                }, completion: { (bool) in
+                    
+                    //send post to detail view controller
+                    delegate.postSelected(self.posts[indexPath.row])
+                    
+                    //shows detail view controller for iphone splitview
+                    if let detailViewController = delegate as? PostDetailViewController {
+                        self.splitViewController?.showDetailViewController(detailViewController, sender: nil)
+                    }
+                    
+                })
 
-            //updates post readed status and post cell
-            posts[indexPath.row].isReaded = true
-            collectionView.performBatchUpdates({
-                collectionView.reloadItems(at: [indexPath])
-            }, completion: { (bool) in
-
-                //send post to detail view controller
-                delegate.postSelected(self.posts[indexPath.row])
-                
-                //shows detail view controller for iphone splitview
-                if let detailViewController = delegate as? PostDetailViewController {
-                    self.splitViewController?.showDetailViewController(detailViewController, sender: nil)
-                }
-
-            })
         }
     }
     
@@ -263,6 +265,13 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
+    @IBAction func didTapDismissAllPost(_ sender: Any) {
+        self.posts.removeAll()
+        self.collectionView?.performBatchUpdates({
+            self.collectionView?.reloadSections(IndexSet.init(integer: 0))
+        }, completion: nil)
+
+    }
     //MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
