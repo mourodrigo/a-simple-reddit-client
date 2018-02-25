@@ -51,7 +51,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
 
     // MARK: User Authentication
-    func presentUserLoginControll(notification:Notification) -> Void {
+    @objc func presentUserLoginControll(notification:Notification) -> Void {
         self.performSegue(withIdentifier: "PresentLoginViewController", sender: nil)
     }
     
@@ -72,7 +72,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     //MARK - ImagePreview
     
-    func didFetchPosts(notification:Notification) -> Void {
+    @objc func didFetchPosts(notification:Notification) -> Void {
         
         if let postsFetched = notification.object as? [Post] {
             self.posts.append(contentsOf: postsFetched)
@@ -84,7 +84,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
     
-    func updateDataSource(){
+    @objc func updateDataSource(){
         
         if (Authorization.sharedInstance.token.allKeys.count>0){
             self.refresher.beginRefreshing()
@@ -217,7 +217,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     //MARK - ImagePreview
     
-    func didTapImageButton(notification:Notification) -> Void {
+    @objc func didTapImageButton(notification:Notification) -> Void {
 
         if(notification.object != nil){
             

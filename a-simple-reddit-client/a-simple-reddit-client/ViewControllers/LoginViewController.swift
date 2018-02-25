@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
         Authorization.sharedInstance.authorize()
     }
     
-    func oAuthNeedsUserLogin(notification:Notification) -> Void {
+    @objc func oAuthNeedsUserLogin(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .oAuthNeedsUserLogin, object: nil)
         self.openOnBrowser(url: Authorization.sharedInstance.authURL())
     }
@@ -64,14 +64,14 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func oAuthDidFail(){
+    @objc func oAuthDidFail(){
         NotificationCenter.default.removeObserver(self, name: .oAuthDidFail, object: nil)
         NotificationCenter.default.removeObserver(self, name: .tokenDidAuthorize, object: nil)
         
         presentErrorAlert()
     }
     
-    func tokenDidAuthorize(notification:Notification) -> Void {
+    @objc func tokenDidAuthorize(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .tokenDidAuthorize, object: nil)
 
         if(notification.object == nil){
