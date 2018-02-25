@@ -20,6 +20,17 @@ class PostDetailViewController: UIViewController {
         }
     }
     
+    func refreshUI() {
+        loadViewIfNeeded()
+        postTitleLabel.text = post?.author
+        postDetailTextLabel.text = post?.title
+        if let link = post?.thumbnailLink, link.isURL {
+            postImageView.downloadedFrom(link: link)
+        } else {
+            postImageView.image = UIImage.init(named: "externalLink")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,18 +45,12 @@ class PostDetailViewController: UIViewController {
         self.performSegue(withIdentifier: "ShowFullScreenImageViewController", sender: nil)
     }
     
-    func refreshUI() {
-        loadViewIfNeeded()
-        postTitleLabel.text = post?.author
-        postDetailTextLabel.text = post?.title
-        if let link = post?.thumbnailLink, link.isURL {
-            postImageView.downloadedFrom(link: link)
-        } else {
-            postImageView.image = UIImage.init(named: "externalLink")
-        }
+    @IBAction func didTapViewOriginalButton(_ sender: Any) {
+        guard let link = post?.externalLink, link.isURL else { return }
+        self.performSegue(withIdentifier: "ShowWebViewController", sender: nil)
+
     }
-
-
+    
     //MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -54,7 +59,11 @@ class PostDetailViewController: UIViewController {
             let fullScreenImageViewController = segue.destination as! FullScreenImageViewController
             fullScreenImageViewController.urlString = (post?.thumbnailLink)!
         }
-
+        
+        if(segue.identifier == "ShowWebViewController"){
+            let webViewController = segue.destination as! WebViewController
+            webViewController.urlString = (post?.externalLink)!
+        }
     }
     
 }
