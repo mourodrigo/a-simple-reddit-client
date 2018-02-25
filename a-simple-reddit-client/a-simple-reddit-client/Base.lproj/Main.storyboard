@@ -148,6 +148,7 @@
                         <outlet property="postDetailTextLabel" destination="wIX-qd-cSz" id="gZB-6N-6aY"/>
                         <outlet property="postImageView" destination="OtP-d1-F05" id="sUo-w1-Qh7"/>
                         <outlet property="postTitleLabel" destination="aCj-1C-ks2" id="hWT-n4-uiH"/>
+                        <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="FQj-DL-9qw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYN-ly-Jhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -449,7 +450,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
-                        <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="eYJ-me-2WI"/>
                         <segue destination="EUb-D1-vzN" kind="show" identifier="ShowWebViewController" id="spY-Bz-pLW"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="PresentLoginViewController" id="HdQ-qr-cgp"/>
                     </connections>
@@ -475,10 +475,10 @@
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TJj-IX-Ghq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5zC-3H-bev">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>

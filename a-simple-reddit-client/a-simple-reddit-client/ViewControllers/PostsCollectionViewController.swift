@@ -224,31 +224,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         self.collectionView?.collectionViewLayout.invalidateLayout()
         self.updateCellSize(tofit: size)
     }
-    
-    //MARK - ImagePreview
-    
-    @objc func didTapImageButton(notification:Notification) -> Void {
-
-        if(notification.object != nil){
-            
-            let index = IndexPath.init(row: (notification.object as! Int) , section: 0)
-            
-            let data = posts[index.row]
-            
-//            let previewData = data.value(forKey: "preview") as! NSDictionary
-//            
-//            if(previewData.value(forKey: "enabled") as! Bool){
-//                
-//                let images = previewData.value(forKey: "images") as! NSArray
-//                let imageSource = images.value(forKey: "source") as! NSArray
-//                let content = imageSource.firstObject as! NSDictionary
-//                let urlString = content.value(forKey: "url") as! String
-//                
-//                self.performSegue(withIdentifier: "ShowFullScreenImageViewController", sender: urlString)
-//                
-//            }
-        }
-    }
 
     //MARK: - Post Dismiss
     @objc func didTapDismissPost(notification:Notification) -> Void {
@@ -272,30 +247,5 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         }, completion: nil)
 
     }
-    //MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       
-        if(segue.identifier == "ShowFullScreenImageViewController"){
-            
-            let urlString = sender as! String
 
-            let fullScreenImageViewController = segue.destination as! FullScreenImageViewController
-            fullScreenImageViewController.urlString = urlString
-            
-            
-        }
-        
-        if(segue.identifier == "ShowWebViewController"){
-            
-            let urlString = sender as! String
-            
-            let webViewController = segue.destination as! WebViewController
-            webViewController.urlString = urlString
-            
-            
-        }
-    
-    }
-   
 }
