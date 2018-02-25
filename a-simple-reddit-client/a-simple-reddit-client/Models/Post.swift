@@ -61,7 +61,7 @@ class Post {
                     
                     for child in childrens {
                         if let item = child["data"] {
-                            let newPost = Post(_name: "",
+                                    let newPost = Post(_name: item["name"] as? String ?? "",
 
                                                _title: item["title"] as? String ?? "",
                                                
