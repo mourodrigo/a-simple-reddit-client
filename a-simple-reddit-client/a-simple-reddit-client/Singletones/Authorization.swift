@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class Authorization {
     
     let clientId = "isBHEDq__wuqTQ"
@@ -25,15 +24,15 @@ class Authorization {
         return instance
     }()
     
-    private init(){
+    private init() {
         print("Authorization init")
     }
     
-    func authURL() -> String{
+    func authURL() -> String {
         return "https://www.reddit.com/api/v1/authorize.compact?client_id=\(clientId)&response_type=\(responseType)&state=\(state)&redirect_uri=\(redirect_uri)&duration=\(duration)&scope=\(scope)"
     }
     
-    func prepareForAuthorize(){
+    func prepareForAuthorize() {
         NotificationCenter.default.removeObserver(self, name: .oAuthDidReturn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.oAuthDidReturn(notification:)), name: .oAuthDidReturn, object: nil) //observer will be called on authentication callback
     }
@@ -41,16 +40,14 @@ class Authorization {
     @objc func oAuthDidReturn(notification:Notification) -> Void {
         NotificationCenter.default.removeObserver(self, name: .oAuthDidReturn, object: nil)
         
-        if(notification.object == nil){
+        guard let authQueryString = notification.object as? String else {
             NotificationCenter.default.post(name:.oAuthDidFail, object: nil, userInfo: nil)
             return
         }
         
-        let authQueryString = notification.object as! String
-        
         let authParams = authQueryString.componentsFromQueryString
         
-        if( authParams.count==0 || !authQueryString.contains(state) ){
+        if authParams.count == 0 || !authQueryString.contains(state) {
             NotificationCenter.default.post(name:.oAuthDidFail, object: nil, userInfo: nil)
             return
         }
@@ -60,7 +57,7 @@ class Authorization {
         getToken(with: "grant_type=authorization_code&code=\(code)&redirect_uri=\(self.redirect_uri)")
     }
     
-    func getToken(with params:String){
+    func getToken(with params:String) {
         
         let url = URL(string: "https://www.reddit.com/api/v1/access_token")!
         let session = URLSession.shared
@@ -90,7 +87,7 @@ class Authorization {
 
                 print("tokenDidAuthorize \(JSONReturn)")
                 
-                if(self.token.allKeys.count==0){ // this is for the first access token request
+                if self.token.allKeys.count == 0 { // this is for the first access token request
 
                     self.token = NSMutableDictionary.init(dictionary: JSONReturn)
                     
@@ -102,7 +99,7 @@ class Authorization {
                     UserDefaults.standard.setValue(self.token.value(forKey: "refresh_token"), forKey: "refresh_token")
                   
                     
-                }else{ // and this is for token refresh, so just update the access_token
+                } else { // and this is for token refresh, so just update the access_token
                     
                     let JSONDictionary = NSMutableDictionary.init(dictionary: JSONReturn)
                     self.token.setValue(JSONDictionary.value(forKey: "access_token"), forKey: "access_token")
@@ -110,11 +107,11 @@ class Authorization {
                 
                 }
                 
-                let valid_through = requestDate.addingTimeInterval(TimeInterval.init(self.token["expires_in"] as! Int))
-                
-                self.token.setValue(valid_through, forKey: "valid_through") //using a Date to token validation keep it more simple
-                UserDefaults.standard.setValue(self.token.value(forKey: "valid_through"), forKey: "valid_through")
-
+                if let expiresIn = self.token["expires_in"] as? Int {
+                    let validThrough = requestDate.addingTimeInterval(TimeInterval.init(expiresIn))
+                    self.token.setValue(validThrough, forKey: "valid_through") //using a Date to token validation keep it more simple
+                    UserDefaults.standard.setValue(self.token.value(forKey: "valid_through"), forKey: "valid_through")
+                }
                 
                 NotificationCenter.default.post(name:.tokenDidAuthorize, object: JSONReturn, userInfo: nil)
 
@@ -122,27 +119,24 @@ class Authorization {
                 NotificationCenter.default.post(name:.oAuthDidFail, object: nil, userInfo: nil)
             }
         }
-        
         task.resume()
-        
     }
     
-    func refreshToken(){
-        
-        getToken(with: "grant_type=refresh_token&refresh_token=\(self.token["refresh_token"]!)")
-    
+    func refreshToken() {
+        if let refreshToken = self.token["refresh_token"] as? String {
+            getToken(with: "grant_type=refresh_token&refresh_token=\(refreshToken)")
+        }
     }
 
-
-    func restoreFromUserDefault(key:String){
+    func restoreFromUserDefault(key:String) {
         self.token.setValue(UserDefaults.standard.value(forKey: key), forKey: key)
     }
     
-    func authorize(){
+    func authorize() {
      
         prepareForAuthorize()
         
-        if( UserDefaults.standard.value(forKey: "access_token") != nil ){
+        if UserDefaults.standard.value(forKey: "access_token") != nil {
             restoreFromUserDefault(key: "access_token")
             restoreFromUserDefault(key: "expires_in")
             restoreFromUserDefault(key: "refresh_token")
@@ -151,19 +145,20 @@ class Authorization {
             restoreFromUserDefault(key: "valid_through")
         }
         
-        
         //checks for token existance and expiration date
         
-        if (self.token.allKeys.count == 0 ) { // // if user have to authorize with user/password
+        if self.token.allKeys.count == 0 { // // if user have to authorize with user/password
 
             NotificationCenter.default.post(name:.oAuthNeedsUserLogin, object: nil, userInfo: nil)
             
-        }else if (self.token.allKeys.count != 0  &&  (self.token["valid_through"] as! Date).isPassed() ) { // has a token, just have to refresh it
+        } else if let validThrough = self.token["valid_through"] as? Date, validThrough.isPassed() { // has a token, just have to refresh it
+
             refreshToken()
 
-        }else{// has a valid token
+        } else if let validThrough = self.token["valid_through"] as? Date, !validThrough.isPassed() { // has a valid token
+
             NotificationCenter.default.post(name:.tokenDidAuthorize, object: self.token, userInfo: nil)
+
         }
-    
     }
 }
