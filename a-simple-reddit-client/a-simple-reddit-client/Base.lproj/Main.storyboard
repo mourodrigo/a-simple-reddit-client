@@ -56,7 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2950" y="-1051"/>
+            <point key="canvasLocation" x="2857" y="-675"/>
         </scene>
         <!--Custom Posts Navigation Controller-->
         <scene sceneID="jbX-wn-Y4Z">
@@ -142,13 +142,21 @@
                             <constraint firstAttribute="trailingMargin" secondItem="bY3-8m-1aN" secondAttribute="trailing" id="zcw-N3-W1r"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Snd-6A-eht"/>
+                    <navigationItem key="navigationItem" id="Snd-6A-eht">
+                        <barButtonItem key="rightBarButtonItem" title="View original" id="Rsd-Qy-IZx">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="didTapViewOriginalButton:" destination="RRe-w1-Ymj" id="Ybu-FA-iN1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="postDetailTextLabel" destination="wIX-qd-cSz" id="gZB-6N-6aY"/>
                         <outlet property="postImageView" destination="OtP-d1-F05" id="sUo-w1-Qh7"/>
                         <outlet property="postTitleLabel" destination="aCj-1C-ks2" id="hWT-n4-uiH"/>
                         <segue destination="Ftf-fD-Bye" kind="show" identifier="ShowFullScreenImageViewController" id="FQj-DL-9qw"/>
+                        <segue destination="EUb-D1-vzN" kind="show" identifier="ShowWebViewController" id="nAY-Un-8x1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYN-ly-Jhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -450,7 +458,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="backgroundView" destination="dDP-vh-EaK" id="jwU-6b-phq"/>
-                        <segue destination="EUb-D1-vzN" kind="show" identifier="ShowWebViewController" id="spY-Bz-pLW"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="PresentLoginViewController" id="HdQ-qr-cgp"/>
                     </connections>
                 </collectionViewController>
@@ -519,7 +526,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WuP-14-Duf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2950" y="-283"/>
+            <point key="canvasLocation" x="2857" y="795"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="07r-o1-MOz">
@@ -534,7 +541,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView multipleTouchEnabled="YES" contentMode="scaleToFill" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XU1-hq-sAI">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="EUb-D1-vzN" id="V5L-MM-oil"/>
@@ -557,7 +564,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8by-MM-l7P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2950" y="435"/>
+            <point key="canvasLocation" x="2901" y="36"/>
         </scene>
     </scenes>
     <resources>
