@@ -14,11 +14,6 @@ protocol PostSelectionDelegate: class {
 
 class PostsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    //UICollectionViewLayout
-    var numberOfColumns = 1
-    let spacing = 2
-    var cellSize = CGSize.zero
-
     //Loading and Refresh
     @IBOutlet var backgroundView: UIView!
     let refresher = UIRefreshControl()
@@ -52,6 +47,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     // MARK: User Authentication
+    
     @objc func presentUserLoginControll(notification:Notification) -> Void {
         self.performSegue(withIdentifier: "PresentLoginViewController", sender: nil)
     }
@@ -61,7 +57,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.updateCellSize()
         if posts.count == 0 {
             updateDataSource()
         }
@@ -148,10 +143,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             return cell
         }
     }
-    
-    
-    // MARK: UICollectionViewDataDelegate
 
+    // MARK: UICollectionViewDataDelegate
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if indexPath.row == posts.count && !refresher.isRefreshing { // load more label
@@ -178,54 +172,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
         }
     }
-    
-    // MARK: UICollectionViewLayout
-    
-    func updateCellSize(tofit size:CGSize = UIScreen.main.bounds.size){
-        cellSize = self.getCellSize(tofit: size)  //calculates cell size
-    }
-    
-    func getCellSize(tofit size:CGSize = UIScreen.main.bounds.size) -> CGSize{
-        
-        let contentSize = size
-        
-        if(UIDevice.current.model=="iPhone" && UIDevice.current.orientation.isPortrait){
-            numberOfColumns = 1
-        }else if(UIDevice.current.model=="iPhone" && UIDevice.current.orientation.isLandscape){
-            numberOfColumns = 2
-        }else if(UIDevice.current.model=="iPad" && UIDevice.current.orientation.isPortrait){
-            numberOfColumns = 3
-        }else if(UIDevice.current.model=="iPad" && (UIDevice.current.orientation.isLandscape || UIDevice.current.orientation.isFlat)){
-            numberOfColumns = 4
-        }else{
-            numberOfColumns = 1
-        }
-        
-        let cellWidth = CGFloat.init((Int(contentSize.width)-(numberOfColumns*spacing)) / numberOfColumns)
-        return CGSize.init(width: cellWidth, height: cellWidth/2)  //calculate cell size
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return cellSize
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(spacing)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(spacing)
-    }
-
-    //MARK: - Orientation
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        self.collectionView?.collectionViewLayout.invalidateLayout()
-        self.updateCellSize(tofit: size)
-    }
 
     //MARK: - Post Dismiss
+    
     @objc func didTapDismissPost(notification:Notification) -> Void {
         guard let post = notification.object as? Post else { return }
         print("post to delete", post.name)
