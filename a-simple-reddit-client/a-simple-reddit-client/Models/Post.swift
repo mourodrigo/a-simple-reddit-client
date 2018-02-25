@@ -16,7 +16,7 @@ class Post {
     let externalLink: String?
     let thumbnailLink: String?
     let commentsCount: Int
-    let isReaded: Bool
+    var isReaded: Bool
     
     init(_name:String, _title: String, _author: String, _date: Date?, _externalLink: String?, _thumbnailLink: String?, _commentsCount: Int  , _isReaded: Bool) {
 

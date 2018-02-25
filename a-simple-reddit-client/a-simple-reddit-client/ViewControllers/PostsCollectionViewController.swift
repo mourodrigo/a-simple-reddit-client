@@ -50,19 +50,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         collectionView!.addSubview(refresher)
         
     }
-
-    @objc func didTapDismissPost(notification:Notification) -> Void {
-        guard let post = notification.object as? Post else { return }
-        
-        if let index = posts.index(where: { (postItem) -> Bool in
-            postItem.name == post.name
-        }) {
-            self.collectionView?.performBatchUpdates({
-                posts.remove(at: index)
-                self.collectionView?.deleteItems(at: [IndexPath.init(item: index, section: 0)])
-            }, completion: nil)
-        }
-    }
     
     // MARK: User Authentication
     @objc func presentUserLoginControll(notification:Notification) -> Void {
@@ -80,8 +67,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     // MARK: UICollectionViewDataSource
-    
-    //MARK - ImagePreview
     
     @objc func didFetchPosts(notification:Notification) -> Void {
         
@@ -146,6 +131,8 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
             cell.titleLabel.text = post.title
 
             cell.commentsLabel.text = "\(post.commentsCount) comments"
+            
+            cell.viewedImageView.isHidden = post.isReaded
 
             if let postDate = post.date {
                 cell.dateAgoLabel.text = postDate.timeAgoString()
@@ -172,9 +159,17 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
         } else if let delegate = postDetailDelegate {
 
+            //updates post readed status and post cell
+            posts[indexPath.row].isReaded = true
+            collectionView.performBatchUpdates({
+                collectionView.reloadItems(at: [indexPath])
+            })
+            
+            //send post to detail view controller
             delegate.postSelected(posts[indexPath.row])
-
-            if let detailViewController = delegate as? PostDetailViewController { //shows detail view controller for iphone splitview
+            
+            //shows detail view controller for iphone splitview
+            if let detailViewController = delegate as? PostDetailViewController {
                 splitViewController?.showDetailViewController(detailViewController, sender: nil)
             }
         }
@@ -251,6 +246,19 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         }
     }
 
+    //MARK: - Post Dismiss
+    @objc func didTapDismissPost(notification:Notification) -> Void {
+        guard let post = notification.object as? Post else { return }
+        
+        if let index = posts.index(where: { (postItem) -> Bool in
+            postItem.name == post.name
+        }) {
+            self.collectionView?.performBatchUpdates({
+                posts.remove(at: index)
+                self.collectionView?.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+            }, completion: nil)
+        }
+    }
     
     //MARK: - Navigation
     
