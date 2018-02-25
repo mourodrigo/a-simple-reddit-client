@@ -39,7 +39,7 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         NotificationCenter.default.addObserver(self, selector: #selector(updateDataSource), name: .tokenDidAuthorize, object: nil)
         
         //notifications for user actions
-        NotificationCenter.default.addObserver(self, selector: #selector(didTapImageButton(notification:)), name: .didTapImageButton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapDismissPost(notification:)), name: .didTapDismissPost, object: nil)
  
         //notifications for user actions
         NotificationCenter.default.addObserver(self, selector: #selector(didFetchPosts(notification:)), name: .didFetchPosts, object: nil)
@@ -51,6 +51,19 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         
     }
 
+    @objc func didTapDismissPost(notification:Notification) -> Void {
+        guard let post = notification.object as? Post else { return }
+        
+        if let index = posts.index(where: { (postItem) -> Bool in
+            postItem.name == post.name
+        }) {
+            self.collectionView?.performBatchUpdates({
+                posts.remove(at: index)
+                self.collectionView?.deleteItems(at: [IndexPath.init(item: index, section: 0)])
+            }, completion: nil)
+        }
+    }
+    
     // MARK: User Authentication
     @objc func presentUserLoginControll(notification:Notification) -> Void {
         self.performSegue(withIdentifier: "PresentLoginViewController", sender: nil)

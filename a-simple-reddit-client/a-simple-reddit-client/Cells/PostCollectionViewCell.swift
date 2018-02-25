@@ -20,7 +20,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var viewedImageView: UIImageView!
     
     @IBAction func didTapDismissPost(_ sender: Any) {
-        
+        NotificationCenter.default.post(name: .didTapDismissPost, object: post)
     }
 }
 
