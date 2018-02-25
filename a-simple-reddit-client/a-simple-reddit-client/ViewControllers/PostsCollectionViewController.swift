@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PostSelectionDelegate: class {
+    func postSelected(_ post: Post)
+}
+
 class PostsCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     //UICollectionViewLayout
@@ -21,6 +25,9 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
  
     //Datasource
     var posts = [Post]()
+    
+    //Delegate
+    weak var postDetailDelegate: PostSelectionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,17 +154,14 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
-        if(indexPath.row == posts.count && !refresher.isRefreshing){ // the load more label
+        if indexPath.row == posts.count && !refresher.isRefreshing { // load more label
 
             Post.fetch(after: "count=\(self.posts.count)&after=\(posts[indexPath.row-1].name)")
 
-        }else{ // any other cell will open a webview with URL  
+        } else if let delegate = postDetailDelegate {
 
-            if let externalLink = posts[indexPath.row].externalLink {
-                self.performSegue(withIdentifier: "ShowWebViewController", sender: externalLink)
-            }
-            
+            delegate.postSelected(posts[indexPath.row])
+
         }
     }
     
