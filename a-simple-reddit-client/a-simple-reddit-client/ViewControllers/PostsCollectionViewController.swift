@@ -36,6 +36,8 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         NotificationCenter.default.addObserver(self, selector: #selector(presentUserLoginControll(notification:)), name: .oAuthDidFail, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(presentUserLoginControll(notification:)), name: .oAuthNeedsUserLogin, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDataSource), name: .tokenDidAuthorize, object: nil)
+        
         //notifications for user actions
         NotificationCenter.default.addObserver(self, selector: #selector(didTapImageButton(notification:)), name: .didTapImageButton, object: nil)
  
@@ -46,7 +48,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         self.collectionView!.alwaysBounceVertical = true
         refresher.addTarget(self, action: #selector(updateDataSource), for: .valueChanged)
         collectionView!.addSubview(refresher)
-        
         
     }
 
@@ -61,9 +62,6 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidAppear(_ animated: Bool) {
         self.updateCellSize()
-        
-        Authorization.sharedInstance.authorize()
-        
         updateDataSource()
     
     }
@@ -85,10 +83,11 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     @objc func updateDataSource(){
-        
-        if (Authorization.sharedInstance.token.allKeys.count>0){
+        if Authorization.sharedInstance.token.allKeys.count>0 {
             self.refresher.beginRefreshing()
             Post.fetch()
+        } else {
+            Authorization.sharedInstance.authorize()
         }
 
     }
