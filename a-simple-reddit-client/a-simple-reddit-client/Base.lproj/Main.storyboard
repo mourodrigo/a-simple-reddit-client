@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GoB-YJ-Ay4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zwc-11-owN">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -83,15 +83,18 @@
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="RRe-w1-Ymj" kind="relationship" relationship="rootViewController" id="DWZ-Re-nOk"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4F-Yw-gWK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="918" y="804"/>
         </scene>
-        <!--View Controller-->
+        <!--Post Detail View Controller-->
         <scene sceneID="jtN-6m-ZQn">
             <objects>
-                <viewController id="RRe-w1-Ymj" sceneMemberID="viewController">
+                <viewController id="RRe-w1-Ymj" customClass="PostDetailViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yUa-oR-eNR"/>
                         <viewControllerLayoutGuide type="bottom" id="zx9-9m-1NP"/>
@@ -101,7 +104,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bY3-8m-1aN">
-                                <rect key="frame" x="20" y="20" width="374" height="375.33333333333331"/>
+                                <rect key="frame" x="20" y="64" width="374" height="375.33333333333331"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OtP-d1-F05">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="200"/>
@@ -132,15 +135,21 @@
                             <constraint firstAttribute="trailingMargin" secondItem="bY3-8m-1aN" secondAttribute="trailing" id="zcw-N3-W1r"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Snd-6A-eht"/>
+                    <connections>
+                        <outlet property="postDetailTextLabel" destination="9Gz-9O-kIK" id="aRE-V0-wF4"/>
+                        <outlet property="postImageView" destination="OtP-d1-F05" id="sUo-w1-Qh7"/>
+                        <outlet property="postTitleLabel" destination="aCj-1C-ks2" id="hWT-n4-uiH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WYN-ly-Jhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1727.536231884058" y="794.83695652173924"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Custom Split View Controller-->
         <scene sceneID="D3f-Mn-qAK">
             <objects>
-                <splitViewController id="zwc-11-owN" sceneMemberID="viewController">
+                <splitViewController id="zwc-11-owN" customClass="CustomSplitViewController" customModule="a_simple_reddit_client" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="GoB-YJ-Ay4" kind="relationship" relationship="masterViewController" id="r1P-21-PMM"/>
                         <segue destination="Ljh-L1-8HN" kind="relationship" relationship="detailViewController" id="ah9-Hg-bAg"/>
