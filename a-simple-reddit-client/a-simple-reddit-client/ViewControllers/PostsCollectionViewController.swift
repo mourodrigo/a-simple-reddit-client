@@ -161,6 +161,10 @@ class PostsCollectionViewController: UICollectionViewController, UICollectionVie
         } else if let delegate = postDetailDelegate {
 
             delegate.postSelected(posts[indexPath.row])
+            
+            if let detailViewController = delegate as? PostDetailViewController { //shows detail view controller for iphone splitview
+                splitViewController?.showDetailViewController(detailViewController, sender: nil)
+            }
 
         }
     }
